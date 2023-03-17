@@ -144,8 +144,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6427392870271458207}
+  - component: {fileID: 8865627054198221846}
   m_Layer: 5
-  m_Name: Level
+  m_Name: Level Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -174,6 +175,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8865627054198221846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6865327225588531644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4aded29c1c7b714bba9fe0a2405a9b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelBar: {fileID: 8017150757256047303}
+  xpText: {fileID: 8747760993275449798}
+  levelText: {fileID: 8017150758061127634}
 --- !u!1 &8017150757256047301
 GameObject:
   m_ObjectHideFlags: 0
@@ -352,7 +368,7 @@ GameObject:
   - component: {fileID: 8017150758061127635}
   - component: {fileID: 8017150758061127634}
   m_Layer: 5
-  m_Name: Level (TMP)
+  m_Name: Level Visual (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
