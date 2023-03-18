@@ -34,21 +34,13 @@ public class LevelManager : MonoBehaviour
         currentXp = totalXp;
         level = 1;
         int maxXp = Mathf.RoundToInt(Mathf.Pow(1 / x, y));
-        Debug.Log(maxXp);
 
         while (currentXp >= maxXp)
         {
-            // Level up
-            Debug.Log(maxXp);
             currentXp -= maxXp;
             level++;
             maxXp = Mathf.RoundToInt(Mathf.Pow(level / x, y));
-        }/*
-        while (currentXp < Mathf.RoundToInt(Mathf.Pow(level - 1 / x, y)) && level > 1)
-        {
-            // Level down
-            level--;
-        }*/
+        }
 
         levelVisual.UpdateValues(maxXp, currentXp, level);
     }

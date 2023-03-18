@@ -9,6 +9,8 @@ public class PageSwiper : MonoBehaviour, IDragHandler, IEndDragHandler
     public float easing = 0.5f;
     public int totalPages = 1;
     public int currentPage = 1;
+    private bool isBlocked;
+    private bool hasStartedDragging;
 
     private void Start()
     {
@@ -17,34 +19,41 @@ public class PageSwiper : MonoBehaviour, IDragHandler, IEndDragHandler
 
     public void OnDrag(PointerEventData data)
     {
-        float difference = data.pressPosition.x - data.position.x;
-        transform.position = panelLocation - new Vector3(difference, 0, 0);
+        if (!isBlocked)
+        {
+            float difference = data.pressPosition.x - data.position.x;
+            transform.position = panelLocation - new Vector3(difference, 0, 0);
+            hasStartedDragging = true;
+        }
     }
 
     public void OnEndDrag(PointerEventData data)
     {
-        float percentage = (data.pressPosition.x - data.position.x) / Screen.width;
-        if (Mathf.Abs(percentage) >= percentThreshold)
+        if (!isBlocked && hasStartedDragging)
         {
-            Vector3 newLocation = panelLocation;
-
-            if (percentage > 0 && currentPage < totalPages)
+            float percentage = (data.pressPosition.x - data.position.x) / Screen.width;
+            if (Mathf.Abs(percentage) >= percentThreshold)
             {
-                currentPage++;
-                newLocation += new Vector3(-Screen.width, 0, 0);
-            }
-            else if (percentage < 0 && currentPage > 1)
-            {
-                currentPage--;
-                newLocation += new Vector3(Screen.width, 0, 0);
-            }
+                Vector3 newLocation = panelLocation;
 
-            StartCoroutine(SmoothMove(transform.position, newLocation, easing));
-            panelLocation = newLocation;
-        }
-        else
-        {
-            StartCoroutine(SmoothMove(transform.position, panelLocation, easing));
+                if (percentage > 0 && currentPage < totalPages)
+                {
+                    currentPage++;
+                    newLocation += new Vector3(-Screen.width, 0, 0);
+                }
+                else if (percentage < 0 && currentPage > 1)
+                {
+                    currentPage--;
+                    newLocation += new Vector3(Screen.width, 0, 0);
+                }
+
+                StartCoroutine(SmoothMove(transform.position, newLocation, easing));
+                panelLocation = newLocation;
+            }
+            else
+            {
+                StartCoroutine(SmoothMove(transform.position, panelLocation, easing));
+            }
         }
     }
 
@@ -58,5 +67,10 @@ public class PageSwiper : MonoBehaviour, IDragHandler, IEndDragHandler
             transform.position = Vector3.Lerp(startpos, endpos, Mathf.SmoothStep(0f, 1f, t));
             yield return null;
         }
+    }
+
+    public void Block(bool blocking)
+    {
+        isBlocked = blocking;
     }
 }
