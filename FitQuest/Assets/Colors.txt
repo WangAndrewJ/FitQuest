@@ -1,0 +1,9 @@
+Beige: FFFFC8
+Background Grey: 2E2E2E
+Light Green: 96FF96
+Light Red: B43737
+Light Blue: 5096FF
+Slider Background Grey: 646464
+Slider Fill Yellow: FFAF00
+Menu: 000000 A: 215
+Dark Red: 7D0000

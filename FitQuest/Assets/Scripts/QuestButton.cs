@@ -4,29 +4,45 @@ using TMPro;
 
 public class QuestButton : MonoBehaviour
 {
-    public int xpAmount;
+    public int xpAmount = 1;
     private LevelManager levelManager;
     public Slider completionSlider;
-    private int goalAmount = 1;
-    private ButtonManager buttonManager;
+    public int goalAmount = 1;
+    public ButtonManager buttonManager;
     public TextMeshProUGUI questName;
+    private MoreMenu moreMenu;
+    private string questDescription;
+    private PageSwiper pageSwiper;
 
     private void Start()
     {
         buttonManager = transform.parent.GetComponent<ButtonManager>();
-        levelManager = FindObjectOfType<LevelManager>();
+        levelManager = buttonManager.levelManager;
+        moreMenu = buttonManager.moreMenu;
+        pageSwiper = buttonManager.pageSwiper;
     }
 
-    public void ChangeXp()
+    public void ChangeXp(bool isAdding)
     {
-        levelManager.ChangeCurrentLevelAndXp(xpAmount);
-        completionSlider.value++;
-
-        if (completionSlider.value == goalAmount)
+        if (isAdding)
         {
-            Debug.Log("Complete!");
-            transform.parent = null;
-            Destroy(gameObject);
+            levelManager.ChangeCurrentLevelAndXp(xpAmount);
+            completionSlider.value++;
+
+            if (completionSlider.value == goalAmount)
+            {
+                Debug.Log("Complete!");
+                transform.parent = null;
+                Destroy(gameObject);
+            }
+        }
+        else
+        {
+            if (completionSlider.value > 0)
+            {
+                levelManager.ChangeCurrentLevelAndXp(-xpAmount);
+                completionSlider.value--;
+            }
         }
     }
 
@@ -34,12 +50,27 @@ public class QuestButton : MonoBehaviour
     {
         this.goalAmount = goalAmount;
         completionSlider.maxValue = this.goalAmount;
+        Debug.Log(completionSlider.maxValue);
+        Debug.Log(this.goalAmount);
         this.questName.text = questName;
         this.xpAmount = xpAmount;
+        this.questDescription = questDescription;
     }
 
     private void OnDestroy()
     {
+        transform.position = new Vector3(0f, -1000f, 0f);
         buttonManager.RearrangeButtons();
+    }
+
+    public void OpenMoreMenu()
+    {
+        pageSwiper.Block(true);
+        moreMenu.gameObject.SetActive(true);
+        moreMenu.questButton = this;
+        moreMenu.questNameInput.text = questName.text;
+        moreMenu.questDescriptionInput.text = questDescription;
+        moreMenu.goalAmountInput.text = goalAmount.ToString();
+        moreMenu.xpAmountInput.text = xpAmount.ToString();
     }
 }

@@ -11,6 +11,9 @@ public class ButtonManager : MonoBehaviour
     public TMP_InputField questDescriptionInput;
     public TMP_InputField goalAmountInput;
     public TMP_InputField xpAmountInput;
+    public LevelManager levelManager;
+    public MoreMenu moreMenu;
+    public PageSwiper pageSwiper;
 
     public void RearrangeButtons()
     {
@@ -42,15 +45,15 @@ public class ButtonManager : MonoBehaviour
         }
         catch (Exception exception)
         {
-            Debug.Log(exception);
+            Debug.Log($"Button Manager: {exception}");
             return;
         }
 
         RectTransform instantiatedQuestButton = Instantiate(questButton, transform).GetComponent<RectTransform>();
-        QuestButton questbutton = instantiatedQuestButton.GetComponent<QuestButton>();
+        QuestButton alreadyInstantiatedQuestButton = instantiatedQuestButton.GetComponent<QuestButton>();
         Debug.Log(instantiatedQuestButton.anchoredPosition.y);
         instantiatedQuestButton.anchoredPosition = new Vector3(0f, newQuestButton.anchoredPosition.y + 1f, 0f);
-        questbutton.SetValues(questNameInput.text, questDescriptionInput.text, goalAmountText, xpAmountText);
+        alreadyInstantiatedQuestButton.SetValues(questNameInput.text, questDescriptionInput.text, goalAmountText, xpAmountText);
         RearrangeButtons();
     }
 }
