@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.UI;
 
 public class MoreMenu : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class MoreMenu : MonoBehaviour
     public TMP_InputField questDescriptionInput;
     public TMP_InputField goalAmountInput;
     public TMP_InputField xpAmountInput;
+    public Toggle dailyToggle;
 
     public void DeleteQuest()
     {
@@ -40,6 +42,6 @@ public class MoreMenu : MonoBehaviour
         }
 
         Debug.Log("Past All Checks");
-        questButton.SetValues(questNameInput.text, questDescriptionInput.text, goalAmount, xpAmount);
+        questButton.SetValues(questNameInput.text, questDescriptionInput.text, goalAmount, xpAmount, dailyToggle.isOn);
     }
 }

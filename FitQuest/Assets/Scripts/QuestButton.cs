@@ -13,6 +13,8 @@ public class QuestButton : MonoBehaviour
     private MoreMenu moreMenu;
     private string questDescription;
     private PageSwiper pageSwiper;
+    private bool isDaily;
+    public GameObject cover;
 
     private void Start()
     {
@@ -31,9 +33,16 @@ public class QuestButton : MonoBehaviour
 
             if (completionSlider.value == goalAmount)
             {
-                Debug.Log("Complete!");
-                transform.parent = null;
-                Destroy(gameObject);
+                if (isDaily)
+                {
+                    cover.SetActive(true);
+                }
+                else
+                {
+                    Debug.Log("Complete!");
+                    transform.parent = null;
+                    Destroy(gameObject);
+                }
             }
         }
         else
@@ -46,7 +55,7 @@ public class QuestButton : MonoBehaviour
         }
     }
 
-    public void SetValues(string questName, string questDescription, int goalAmount, int xpAmount)
+    public void SetValues(string questName, string questDescription, int goalAmount, int xpAmount, bool isDaily)
     {
         this.goalAmount = goalAmount;
         completionSlider.maxValue = this.goalAmount;
@@ -55,6 +64,7 @@ public class QuestButton : MonoBehaviour
         this.questName.text = questName;
         this.xpAmount = xpAmount;
         this.questDescription = questDescription;
+        this.isDaily = isDaily;
     }
 
     private void OnDestroy()
@@ -72,5 +82,6 @@ public class QuestButton : MonoBehaviour
         moreMenu.questDescriptionInput.text = questDescription;
         moreMenu.goalAmountInput.text = goalAmount.ToString();
         moreMenu.xpAmountInput.text = xpAmount.ToString();
+        moreMenu.dailyToggle.isOn = isDaily;
     }
 }

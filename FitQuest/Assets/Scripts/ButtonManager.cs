@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Linq;
 using System;
+using UnityEngine.UI;
 
 public class ButtonManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class ButtonManager : MonoBehaviour
     public TMP_InputField questDescriptionInput;
     public TMP_InputField goalAmountInput;
     public TMP_InputField xpAmountInput;
+    public Toggle dailyToggle;
     public LevelManager levelManager;
     public MoreMenu moreMenu;
     public PageSwiper pageSwiper;
@@ -25,9 +27,13 @@ public class ButtonManager : MonoBehaviour
             children[child.GetSiblingIndex()] = child;
         }
 
-        foreach (var go in children.OrderByDescending(go => go.position.y))
+        var orderedChildren = children.OrderByDescending(orderedChildren => orderedChildren.position.y);
+        //var result = orderedChildren.Skip(1).Concat(orderedChildren.Take(1));
+
+        foreach (RectTransform child in result)
         {
-            go.anchoredPosition = new Vector3(0f, childYPos, 0f);
+            Debug.Log(child);
+            child.anchoredPosition = new Vector3(0f, childYPos, 0f);
             childYPos -= 135f;
         }
     }
@@ -53,7 +59,7 @@ public class ButtonManager : MonoBehaviour
         QuestButton alreadyInstantiatedQuestButton = instantiatedQuestButton.GetComponent<QuestButton>();
         Debug.Log(instantiatedQuestButton.anchoredPosition.y);
         instantiatedQuestButton.anchoredPosition = new Vector3(0f, newQuestButton.anchoredPosition.y + 1f, 0f);
-        alreadyInstantiatedQuestButton.SetValues(questNameInput.text, questDescriptionInput.text, goalAmountText, xpAmountText);
+        alreadyInstantiatedQuestButton.SetValues(questNameInput.text, questDescriptionInput.text, goalAmountText, xpAmountText, dailyToggle.isOn);
         RearrangeButtons();
     }
 }
