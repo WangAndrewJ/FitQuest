@@ -8,3 +8,4 @@ Slider Fill Yellow: FFAF00
 Menu Transparent Black: 000000 A: 215
 Dark Red: 7D0000
 Light Grey Text: 323232
+Black Transparent Highlight: 000000 A: 80

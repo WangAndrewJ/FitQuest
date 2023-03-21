@@ -3,6 +3,7 @@ using TMPro;
 using System.Linq;
 using System;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class ButtonManager : MonoBehaviour
 {
@@ -27,10 +28,32 @@ public class ButtonManager : MonoBehaviour
             children[child.GetSiblingIndex()] = child;
         }
 
-        var orderedChildren = children.OrderByDescending(orderedChildren => orderedChildren.position.y);
-        //var result = orderedChildren.Skip(1).Concat(orderedChildren.Take(1));
+        /*List<RectTransform>*/IOrderedEnumerable<RectTransform> orderedChildren = children.OrderByDescending(orderedChildren => orderedChildren.position.y)/*.ToList<RectTransform>()*/;
+/*        orderedChildren.Remove(newQuestButton);
+        orderedChildren.Add(newQuestButton);*/
 
-        foreach (RectTransform child in result)
+        foreach (RectTransform child in orderedChildren)
+        {
+            Debug.Log(child);
+            child.anchoredPosition = new Vector3(0f, childYPos, 0f);
+            childYPos -= 135f;
+        }
+    }
+    public void RearrangeButtonsMoving()
+    {
+        float childYPos = 90f;
+        RectTransform[] children = new RectTransform[transform.childCount];
+
+        foreach (RectTransform child in transform)
+        {
+            children[child.GetSiblingIndex()] = child;
+        }
+
+        List<RectTransform> orderedChildren = children.OrderByDescending(orderedChildren => orderedChildren.position.y).ToList<RectTransform>();
+        orderedChildren.Remove(newQuestButton);
+        orderedChildren.Add(newQuestButton);
+
+        foreach (RectTransform child in orderedChildren)
         {
             Debug.Log(child);
             child.anchoredPosition = new Vector3(0f, childYPos, 0f);
