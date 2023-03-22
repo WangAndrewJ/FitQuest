@@ -19,7 +19,7 @@ public class LevelManager : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("totalXp") == 0)
         {
-            PlayerPrefs.SetInt("totalXp", 12);
+            PlayerPrefs.SetInt("totalXp", 0);
         }
         else
         {

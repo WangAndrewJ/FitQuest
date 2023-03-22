@@ -1237,6 +1237,7 @@ MonoBehaviour:
   buttonManager: {fileID: 0}
   questName: {fileID: 7851406631171255415}
   cover: {fileID: 704498262422584956}
+  rectTransform: {fileID: 5918138796084732679}
 --- !u!1 &7612810202788935162
 GameObject:
   m_ObjectHideFlags: 0
