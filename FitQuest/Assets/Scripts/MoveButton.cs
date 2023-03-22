@@ -9,13 +9,13 @@ public class MoveButton : MonoBehaviour, IDragHandler, IEndDragHandler
     public void OnDrag(PointerEventData data)
     {
         transform.parent.parent.position = new Vector3(transform.parent.parent.position.x, data.position.y, 0f);
-        questButton.buttonManager.RearrangeButtonsMoving();
+        questButton.buttonManager.RearrangeMovingButtons();
         highlight.SetActive(true);
     }
 
     public void OnEndDrag(PointerEventData data)
     {
-        questButton.buttonManager.RearrangeButtonsMoving();
+        questButton.buttonManager.SaveQuests();
         highlight.SetActive(false);
     }
 }

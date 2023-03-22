@@ -1,11 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.IO;
 
 public struct Quest
 {
-    public Quest(int goalAmount, string questName, int xpAmount, string questDescription, bool isDaily, int order)
+    public Quest(int goalAmount, string questName, int xpAmount, string questDescription, bool isDaily, int order, float sliderValue)
     {
         this.goalAmount = goalAmount;
         this.questName = questName;
@@ -13,6 +12,7 @@ public struct Quest
         this.questDescription = questDescription;
         this.isDaily = isDaily;
         this.order = order;
+        this.sliderValue = sliderValue;
     }
 
     public int goalAmount;
@@ -21,11 +21,11 @@ public struct Quest
     public string questDescription;
     public bool isDaily;
     public int order;
+    public float sliderValue;
 }
 
 public class QuestButton : MonoBehaviour
 {
-    public Quest quest;
     public int xpAmount = 1;
     private LevelManager levelManager;
     public Slider completionSlider;
@@ -45,7 +45,6 @@ public class QuestButton : MonoBehaviour
         levelManager = buttonManager.levelManager;
         moreMenu = buttonManager.moreMenu;
         pageSwiper = buttonManager.pageSwiper;
-        SetQuest();
     }
 
     public void ChangeXp(bool isAdding)
@@ -77,6 +76,8 @@ public class QuestButton : MonoBehaviour
                 completionSlider.value--;
             }
         }
+
+        buttonManager.SaveQuests();
     }
 
     public void SetValues(string questName, string questDescription, int goalAmount, int xpAmount, bool isDaily)
@@ -87,7 +88,6 @@ public class QuestButton : MonoBehaviour
         this.xpAmount = xpAmount;
         this.questDescription = questDescription;
         this.isDaily = isDaily;
-        SetQuest();
     }
 
     private void OnDestroy()
@@ -108,18 +108,11 @@ public class QuestButton : MonoBehaviour
         moreMenu.dailyToggle.isOn = isDaily;
     }
 
-    public void SetQuest()
+    public Quest GetQuest(int order)
     {
-        int relativeQuestPositionDistance = (int)Mathf.Abs(90f - rectTransform.anchoredPosition.y);
-        quest = new Quest(goalAmount, questName.text, xpAmount, questDescription, isDaily, relativeQuestPositionDistance == 0 ? 0 : relativeQuestPositionDistance / 135);
+        //Quest quest = new Quest(goalAmount, questName.text, xpAmount, questDescription, isDaily, order);
         //File.WriteAllText(Application.persistentDataPath, JsonUtility.ToJson(quest));
-        Debug.Log(JsonUtility.ToJson(quest));
-    }
-
-    public void SetQuest(int order)
-    {
-        quest = new Quest(goalAmount, questName.text, xpAmount, questDescription, isDaily, order);
-        //File.WriteAllText(Application.persistentDataPath, JsonUtility.ToJson(quest));
-        Debug.Log(JsonUtility.ToJson(quest));
+        //Debug.Log(JsonUtility.ToJson(quest));
+        return new Quest(goalAmount, questName.text, xpAmount, questDescription, isDaily, order, completionSlider.value);
     }
 }

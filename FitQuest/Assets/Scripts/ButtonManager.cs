@@ -4,6 +4,7 @@ using System.Linq;
 using System;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 public class ButtonManager : MonoBehaviour
 {
@@ -17,17 +18,43 @@ public class ButtonManager : MonoBehaviour
     public LevelManager levelManager;
     public MoreMenu moreMenu;
     public PageSwiper pageSwiper;
-    private List<Quest> quests = new List<Quest>();
+    private List<Quest> quests;
 
-    public void AddQuest(Quest quest)
+    private void Start()
     {
+        SaveQuests();
+    }
 
+    public void SaveQuests()
+    {
+        quests = new();
+        List<QuestButton> questButtons = new();
+        RectTransform[] children = new RectTransform[transform.childCount];
+
+        foreach (RectTransform child in transform)
+        {
+            children[child.GetSiblingIndex()] = child;
+        }
+
+        List<RectTransform> orderedChildren = children.OrderByDescending(orderedChildren => orderedChildren.position.y).ToList();
+        orderedChildren.Remove(newQuestButton);
+
+        foreach (RectTransform child in orderedChildren)
+        {
+            questButtons.Add(child.GetComponent<QuestButton>());
+        }
+
+        for (int i = 0; i < questButtons.Count; i++)
+        {
+            quests.Add(questButtons[i].GetComponent<QuestButton>().GetQuest(i));
+        }
+
+        Debug.Log(JsonConvert.SerializeObject(quests));
     }
 
     public void RearrangeButtons()
     {
         float childYPos = 90f;
-        //int currentOrder = 0;
         RectTransform[] children = new RectTransform[transform.childCount];
 
         foreach (RectTransform child in transform)
@@ -37,17 +64,16 @@ public class ButtonManager : MonoBehaviour
 
         foreach (RectTransform child in children.OrderByDescending(orderedChildren => orderedChildren.position.y))
         {
-            Debug.Log(child);
             child.anchoredPosition = new Vector3(0f, childYPos, 0f);
             childYPos -= 135f;
-            //child.GetComponent<QuestButton>().SetQuest(currentOrder);
-            //currentOrder++;
         }
+
+        SaveQuests();
     }
-    public void RearrangeButtonsMoving()
+
+    public void RearrangeMovingButtons()
     {
         float childYPos = 90f;
-        int currentOrder = 0;
         RectTransform[] children = new RectTransform[transform.childCount];
 
         foreach (RectTransform child in transform)
@@ -57,25 +83,12 @@ public class ButtonManager : MonoBehaviour
 
         List<RectTransform> orderedChildren = children.OrderByDescending(orderedChildren => orderedChildren.position.y).ToList<RectTransform>();
         orderedChildren.Remove(newQuestButton);
-        //orderedChildren.Add(newQuestButton);
 
         foreach (RectTransform child in orderedChildren)
         {
-            Debug.Log(child);
             child.anchoredPosition = new Vector3(0f, childYPos, 0f);
             childYPos -= 135f;
-            child.GetComponent<QuestButton>().SetQuest(currentOrder);
-            currentOrder++;
         }
-
-        newQuestButton.anchoredPosition = new Vector3(0f, childYPos, 0f);
-
-        // Save Quest
-    }
-
-    public void SaveQuests()
-    {
-
     }
 
     public void MakeQuest()
@@ -96,7 +109,6 @@ public class ButtonManager : MonoBehaviour
 
         RectTransform instantiatedQuestButton = Instantiate(questButton, transform).GetComponent<RectTransform>();
         QuestButton alreadyInstantiatedQuestButton = instantiatedQuestButton.GetComponent<QuestButton>();
-        Debug.Log(instantiatedQuestButton.anchoredPosition.y);
         instantiatedQuestButton.anchoredPosition = new Vector3(0f, newQuestButton.anchoredPosition.y + 1f, 0f);
         alreadyInstantiatedQuestButton.SetValues(questNameInput.text, questDescriptionInput.text, goalAmountText, xpAmountText, dailyToggle.isOn);
         RearrangeButtons();
