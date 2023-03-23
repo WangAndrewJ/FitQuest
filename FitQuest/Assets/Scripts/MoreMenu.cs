@@ -14,7 +14,7 @@ public class MoreMenu : MonoBehaviour
 
     public void DeleteQuest()
     {
-        Destroy(questButton.gameObject);
+        questButton.Destroy();
     }
 
     public void EditQuest()

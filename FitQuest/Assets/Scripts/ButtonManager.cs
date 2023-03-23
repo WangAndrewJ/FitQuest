@@ -5,6 +5,7 @@ using System;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.IO;
 
 public class ButtonManager : MonoBehaviour
 {
@@ -22,7 +23,15 @@ public class ButtonManager : MonoBehaviour
 
     private void Start()
     {
-        SaveQuests();
+        try
+        {
+            quests = JsonConvert.DeserializeObject<List<Quest>>(File.ReadAllText(Path.Combine(Application.persistentDataPath, "questsdata.json")));
+            LoadQuest(quests);
+        }
+        catch (Exception exception)
+        {
+            Debug.Log(exception);
+        }
     }
 
     public void SaveQuests()
@@ -49,6 +58,7 @@ public class ButtonManager : MonoBehaviour
             quests.Add(questButtons[i].GetComponent<QuestButton>().GetQuest(i));
         }
 
+        File.WriteAllText(Path.Combine(Application.persistentDataPath, "questsdata.json"), JsonConvert.SerializeObject(quests));
         Debug.Log(JsonConvert.SerializeObject(quests));
     }
 
@@ -81,7 +91,7 @@ public class ButtonManager : MonoBehaviour
             children[child.GetSiblingIndex()] = child;
         }
 
-        List<RectTransform> orderedChildren = children.OrderByDescending(orderedChildren => orderedChildren.position.y).ToList<RectTransform>();
+        List<RectTransform> orderedChildren = children.OrderByDescending(orderedChildren => orderedChildren.position.y).ToList();
         orderedChildren.Remove(newQuestButton);
 
         foreach (RectTransform child in orderedChildren)
@@ -107,10 +117,30 @@ public class ButtonManager : MonoBehaviour
             return;
         }
 
+        if (goalAmountText <= 0 || xpAmountText <= 0)
+        {
+            Debug.Log("Button Manager: Goal and Xp must both be over 0");
+        }
+
         RectTransform instantiatedQuestButton = Instantiate(questButton, transform).GetComponent<RectTransform>();
         QuestButton alreadyInstantiatedQuestButton = instantiatedQuestButton.GetComponent<QuestButton>();
         instantiatedQuestButton.anchoredPosition = new Vector3(0f, newQuestButton.anchoredPosition.y + 1f, 0f);
         alreadyInstantiatedQuestButton.SetValues(questNameInput.text, questDescriptionInput.text, goalAmountText, xpAmountText, dailyToggle.isOn);
         RearrangeButtons();
+    }
+
+    private void LoadQuest(List<Quest> quests)
+    {
+        if (quests == null)
+        { return; }
+
+        for (int i = 0; i < quests.Count; i++)
+        {
+            RectTransform instantiatedQuestButton = Instantiate(questButton, transform).GetComponent<RectTransform>();
+            QuestButton alreadyInstantiatedQuestButton = instantiatedQuestButton.GetComponent<QuestButton>();
+            instantiatedQuestButton.anchoredPosition = new Vector3(0f, 90f - quests[i].order * 135f, 0f);
+            alreadyInstantiatedQuestButton.SetValues(quests[i].questName, quests[i].questDescription, quests[i].goalAmount, quests[i].xpAmount, quests[i].isDaily, quests[i].sliderValue, quests[i].isDisabled);
+            newQuestButton.anchoredPosition = new Vector3(0f, newQuestButton.anchoredPosition.y - 135f, 0f);
+        }
     }
 }

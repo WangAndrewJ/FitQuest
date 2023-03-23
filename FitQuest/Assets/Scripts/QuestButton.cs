@@ -4,7 +4,7 @@ using TMPro;
 
 public struct Quest
 {
-    public Quest(int goalAmount, string questName, int xpAmount, string questDescription, bool isDaily, int order, float sliderValue)
+    public Quest(int goalAmount, string questName, int xpAmount, string questDescription, bool isDaily, int order, float sliderValue, bool isDisabled)
     {
         this.goalAmount = goalAmount;
         this.questName = questName;
@@ -13,6 +13,7 @@ public struct Quest
         this.isDaily = isDaily;
         this.order = order;
         this.sliderValue = sliderValue;
+        this.isDisabled = isDisabled;
     }
 
     public int goalAmount;
@@ -22,6 +23,7 @@ public struct Quest
     public bool isDaily;
     public int order;
     public float sliderValue;
+    public bool isDisabled;
 }
 
 public class QuestButton : MonoBehaviour
@@ -64,7 +66,8 @@ public class QuestButton : MonoBehaviour
                 {
                     Debug.Log("Complete!");
                     transform.parent = null;
-                    Destroy(gameObject);
+                    Destroy();
+                    //Destroy(gameObject);
                 }
             }
         }
@@ -90,10 +93,24 @@ public class QuestButton : MonoBehaviour
         this.isDaily = isDaily;
     }
 
-    private void OnDestroy()
+    public void SetValues(string questName, string questDescription, int goalAmount, int xpAmount, bool isDaily, float sliderValue, bool isDisabled)
+    {
+        this.goalAmount = goalAmount;
+        completionSlider.maxValue = this.goalAmount;
+        this.questName.text = questName;
+        this.xpAmount = xpAmount;
+        this.questDescription = questDescription;
+        this.isDaily = isDaily;
+        completionSlider.value = sliderValue;
+        cover.SetActive(!isDisabled);
+    }
+
+    public void Destroy()
     {
         transform.position = new Vector3(0f, -1000f, 0f);
         buttonManager.RearrangeButtons();
+        Debug.LogError("wtf");
+        Destroy(gameObject);
     }
 
     public void OpenMoreMenu()
@@ -113,6 +130,6 @@ public class QuestButton : MonoBehaviour
         //Quest quest = new Quest(goalAmount, questName.text, xpAmount, questDescription, isDaily, order);
         //File.WriteAllText(Application.persistentDataPath, JsonUtility.ToJson(quest));
         //Debug.Log(JsonUtility.ToJson(quest));
-        return new Quest(goalAmount, questName.text, xpAmount, questDescription, isDaily, order, completionSlider.value);
+        return new Quest(goalAmount, questName.text, xpAmount, questDescription, isDaily, order, completionSlider.value, !cover.activeSelf);
     }
 }

@@ -15,7 +15,8 @@ public class MoveButton : MonoBehaviour, IDragHandler, IEndDragHandler
 
     public void OnEndDrag(PointerEventData data)
     {
-        questButton.buttonManager.SaveQuests();
+        Debug.Log("end drag");
         highlight.SetActive(false);
+        questButton.buttonManager.SaveQuests();
     }
 }
