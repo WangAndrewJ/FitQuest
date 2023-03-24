@@ -17,6 +17,7 @@ public class ButtonManager : MonoBehaviour
     public TMP_InputField xpAmountInput;
     public Toggle dailyToggle;
     public LevelManager levelManager;
+    public DateManager myDateManager;
     public MoreMenu moreMenu;
     public PageSwiper pageSwiper;
     private List<Quest> quests;
@@ -32,6 +33,8 @@ public class ButtonManager : MonoBehaviour
         {
             Debug.Log(exception);
         }
+
+        StartCoroutine(myDateManager.MinuteLoop());
     }
 
     public void SaveQuests()
@@ -141,6 +144,33 @@ public class ButtonManager : MonoBehaviour
             instantiatedQuestButton.anchoredPosition = new Vector3(0f, 90f - quests[i].order * 135f, 0f);
             alreadyInstantiatedQuestButton.SetValues(quests[i].questName, quests[i].questDescription, quests[i].goalAmount, quests[i].xpAmount, quests[i].isDaily, quests[i].sliderValue, quests[i].isDisabled);
             newQuestButton.anchoredPosition = new Vector3(0f, newQuestButton.anchoredPosition.y - 135f, 0f);
+        }
+    }
+
+    public void ReenableDailyQuests()
+    {
+        RectTransform[] children = new RectTransform[transform.childCount];
+
+        foreach (RectTransform child in transform)
+        {
+            children[child.GetSiblingIndex()] = child;
+        }
+
+        List<RectTransform> orderedChildren = children.OrderByDescending(orderedChildren => orderedChildren.position.y).ToList();
+        orderedChildren.Remove(newQuestButton);
+
+        foreach (RectTransform child in orderedChildren)
+        {
+            QuestButton childQuestButton = child.GetComponent<QuestButton>();
+
+            if (childQuestButton.GetQuest(0).isDaily)
+            {
+                Debug.Log(childQuestButton.GetQuest(0).questName + "1");
+                childQuestButton.isDisabledCover.SetActive(false);
+                childQuestButton.completionSlider.value = 0;
+            }
+
+            SaveQuests();
         }
     }
 }

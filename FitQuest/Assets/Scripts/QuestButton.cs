@@ -38,7 +38,7 @@ public class QuestButton : MonoBehaviour
     private string questDescription;
     private PageSwiper pageSwiper;
     private bool isDaily;
-    public GameObject cover;
+    public GameObject isDisabledCover;
     public RectTransform rectTransform;
 
     private void Start()
@@ -60,7 +60,7 @@ public class QuestButton : MonoBehaviour
             {
                 if (isDaily)
                 {
-                    cover.SetActive(true);
+                    isDisabledCover.SetActive(true);
                 }
                 else
                 {
@@ -102,14 +102,13 @@ public class QuestButton : MonoBehaviour
         this.questDescription = questDescription;
         this.isDaily = isDaily;
         completionSlider.value = sliderValue;
-        cover.SetActive(!isDisabled);
+        isDisabledCover.SetActive(isDisabled);
     }
 
     public void Destroy()
     {
         transform.position = new Vector3(0f, -1000f, 0f);
         buttonManager.RearrangeButtons();
-        Debug.LogError("wtf");
         Destroy(gameObject);
     }
 
@@ -130,6 +129,6 @@ public class QuestButton : MonoBehaviour
         //Quest quest = new Quest(goalAmount, questName.text, xpAmount, questDescription, isDaily, order);
         //File.WriteAllText(Application.persistentDataPath, JsonUtility.ToJson(quest));
         //Debug.Log(JsonUtility.ToJson(quest));
-        return new Quest(goalAmount, questName.text, xpAmount, questDescription, isDaily, order, completionSlider.value, !cover.activeSelf);
+        return new Quest(goalAmount, questName.text, xpAmount, questDescription, isDaily, order, completionSlider.value, isDisabledCover.activeSelf);
     }
 }
