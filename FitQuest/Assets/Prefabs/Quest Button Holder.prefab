@@ -1234,9 +1234,11 @@ MonoBehaviour:
   completionSlider: {fileID: 7444847961292145351}
   goalAmount: 1
   buttonManager: {fileID: 0}
-  questName: {fileID: 7851406631171255415}
+  questName: 
+  questNameText: {fileID: 7851406631171255415}
   isDisabledCover: {fileID: 704498262422584956}
   rectTransform: {fileID: 5918138796084732679}
+  myStreakCounter: {fileID: 0}
 --- !u!1 &7851406631171255369
 GameObject:
   m_ObjectHideFlags: 0

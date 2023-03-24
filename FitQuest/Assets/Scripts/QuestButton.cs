@@ -4,7 +4,7 @@ using TMPro;
 
 public struct Quest
 {
-    public Quest(int goalAmount, string questName, int xpAmount, string questDescription, bool isDaily, int order, float sliderValue, bool isDisabled)
+    public Quest(int goalAmount, string questName, int xpAmount, string questDescription, bool isDaily, int order, float sliderValue, bool isDisabled, int dailyStreak)
     {
         this.goalAmount = goalAmount;
         this.questName = questName;
@@ -14,6 +14,7 @@ public struct Quest
         this.order = order;
         this.sliderValue = sliderValue;
         this.isDisabled = isDisabled;
+        this.dailyStreak = dailyStreak;
     }
 
     public int goalAmount;
@@ -24,6 +25,7 @@ public struct Quest
     public int order;
     public float sliderValue;
     public bool isDisabled;
+    public int dailyStreak;
 }
 
 public class QuestButton : MonoBehaviour
@@ -33,13 +35,16 @@ public class QuestButton : MonoBehaviour
     public Slider completionSlider;
     public int goalAmount = 1;
     public ButtonManager buttonManager;
-    public TextMeshProUGUI questName;
+    //[HideInInspector]
+    public string questName;
+    public TextMeshProUGUI questNameText;
     private MoreMenu moreMenu;
     private string questDescription;
     private PageSwiper pageSwiper;
     private bool isDaily;
     public GameObject isDisabledCover;
     public RectTransform rectTransform;
+    private int dailyStreak;
 
     private void Start()
     {
@@ -56,20 +61,7 @@ public class QuestButton : MonoBehaviour
             levelManager.ChangeCurrentLevelAndXp(xpAmount);
             completionSlider.value++;
 
-            if (completionSlider.value == goalAmount)
-            {
-                if (isDaily)
-                {
-                    isDisabledCover.SetActive(true);
-                }
-                else
-                {
-                    Debug.Log("Complete!");
-                    transform.parent = null;
-                    Destroy();
-                    //Destroy(gameObject);
-                }
-            }
+            UpdateSlider(false);
         }
         else
         {
@@ -83,26 +75,58 @@ public class QuestButton : MonoBehaviour
         buttonManager.SaveQuests();
     }
 
-    public void SetValues(string questName, string questDescription, int goalAmount, int xpAmount, bool isDaily)
+    private void UpdateSlider(bool isAlreadyComplete)
+    {
+        if (completionSlider.value == goalAmount)
+        {
+            if (isDaily)
+            {
+                if (!isAlreadyComplete)
+                {
+                    isDisabledCover.SetActive(true);
+                    IncreaseStreak(1);
+                    buttonManager.SaveQuests();
+                }
+            }
+            else
+            {
+                isDisabledCover.SetActive(false);
+                Debug.Log("Complete!");
+                transform.parent = null;
+                Destroy();
+                //Destroy(gameObject);
+            }
+        }
+        else
+        {
+            isDisabledCover.SetActive(false);
+        }
+    }
+
+    public void ChangeValues(string questName, string questDescription, int goalAmount, int xpAmount, bool isDaily)
     {
         this.goalAmount = goalAmount;
         completionSlider.maxValue = this.goalAmount;
-        this.questName.text = questName;
+        this.questName = questName;
+        questNameText.text = isDaily ? $"{questName} ({dailyStreak})" : questName;
         this.xpAmount = xpAmount;
         this.questDescription = questDescription;
         this.isDaily = isDaily;
+        UpdateSlider(true);
     }
 
-    public void SetValues(string questName, string questDescription, int goalAmount, int xpAmount, bool isDaily, float sliderValue, bool isDisabled)
+    public void LoadValues(string questName, string questDescription, int goalAmount, int xpAmount, bool isDaily, float sliderValue, bool isDisabled, int dailyStreak)
     {
         this.goalAmount = goalAmount;
         completionSlider.maxValue = this.goalAmount;
-        this.questName.text = questName;
+        this.questName = questName;
         this.xpAmount = xpAmount;
         this.questDescription = questDescription;
         this.isDaily = isDaily;
         completionSlider.value = sliderValue;
         isDisabledCover.SetActive(isDisabled);
+        UpdateStreak(dailyStreak);
+        questNameText.text = isDaily ? $"{questName} ({dailyStreak})" : questName;
     }
 
     public void Destroy()
@@ -117,7 +141,7 @@ public class QuestButton : MonoBehaviour
         pageSwiper.Block(true);
         moreMenu.gameObject.SetActive(true);
         moreMenu.questButton = this;
-        moreMenu.questNameInput.text = questName.text;
+        moreMenu.questNameInput.text = questName;
         moreMenu.questDescriptionInput.text = questDescription;
         moreMenu.goalAmountInput.text = goalAmount.ToString();
         moreMenu.xpAmountInput.text = xpAmount.ToString();
@@ -129,6 +153,24 @@ public class QuestButton : MonoBehaviour
         //Quest quest = new Quest(goalAmount, questName.text, xpAmount, questDescription, isDaily, order);
         //File.WriteAllText(Application.persistentDataPath, JsonUtility.ToJson(quest));
         //Debug.Log(JsonUtility.ToJson(quest));
-        return new Quest(goalAmount, questName.text, xpAmount, questDescription, isDaily, order, completionSlider.value, isDisabledCover.activeSelf);
+        return new Quest(goalAmount, questName, xpAmount, questDescription, isDaily, order, completionSlider.value, isDisabledCover.activeSelf, dailyStreak);
+    }
+    public void UpdateStreak(int newDailyStreak)
+    {
+        dailyStreak = newDailyStreak;
+
+        questNameText.text = $"{questName} ({dailyStreak})";
+    }
+
+    public void IncreaseStreak(int changeIncrement)
+    {
+        dailyStreak += changeIncrement;
+
+        if (dailyStreak == 0)
+        {
+            return;
+        }
+
+        questNameText.text = $"{questName} ({dailyStreak})";
     }
 }

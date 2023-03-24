@@ -18,7 +18,7 @@ public class DateManager : MonoBehaviour
                 Debug.Log("New Day!");
                 currentDay = DateTime.Today.Day;
                 PlayerPrefs.SetInt("currentDay", currentDay);
-                myButtonManager.ReenableDailyQuests();
+                myButtonManager.UpdateDaily();
             }
 
             yield return new WaitForSeconds(60);

@@ -42,7 +42,7 @@ public class MoreMenu : MonoBehaviour
         }
 
         Debug.Log("Past All Checks");
-        questButton.SetValues(questNameInput.text, questDescriptionInput.text, goalAmount, xpAmount, dailyToggle.isOn);
+        questButton.ChangeValues(questNameInput.text, questDescriptionInput.text, goalAmount, xpAmount, dailyToggle.isOn);
         questButton.buttonManager.SaveQuests();
     }
 }
