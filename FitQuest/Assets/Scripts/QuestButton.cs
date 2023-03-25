@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
+using System.Collections.Generic;
 
 public struct Quest
 {
-    public Quest(int goalAmount, string questName, int xpAmount, string questDescription, bool isDaily, int order, float sliderValue, bool isDisabled, int dailyStreak)
+    public Quest(int goalAmount, string questName, int xpAmount, string questDescription, bool isDaily, int order, float sliderValue, bool isDisabled, int dailyStreak, bool[] activeDaysOfTheWeek)
     {
         this.goalAmount = goalAmount;
         this.questName = questName;
@@ -15,6 +17,7 @@ public struct Quest
         this.sliderValue = sliderValue;
         this.isDisabled = isDisabled;
         this.dailyStreak = dailyStreak;
+        this.activeDaysOfTheWeek = activeDaysOfTheWeek;
     }
 
     public int goalAmount;
@@ -26,6 +29,7 @@ public struct Quest
     public float sliderValue;
     public bool isDisabled;
     public int dailyStreak;
+    public bool[] activeDaysOfTheWeek;
 }
 
 public class QuestButton : MonoBehaviour
@@ -35,7 +39,6 @@ public class QuestButton : MonoBehaviour
     public Slider completionSlider;
     public int goalAmount = 1;
     public ButtonManager buttonManager;
-    //[HideInInspector]
     public string questName;
     public TextMeshProUGUI questNameText;
     private MoreMenu moreMenu;
@@ -45,6 +48,9 @@ public class QuestButton : MonoBehaviour
     public GameObject isDisabledCover;
     public RectTransform rectTransform;
     private int dailyStreak;
+    public bool[] activeDaysOfTheWeek = new bool[7];
+    public List<DayOfWeek> daysOfWeek = new() { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday, DayOfWeek.Saturday, DayOfWeek.Sunday };
+    private DayOfWeek[] copy = new DayOfWeek[7] { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday, DayOfWeek.Saturday, DayOfWeek.Sunday };
 
     private void Start()
     {
@@ -103,7 +109,7 @@ public class QuestButton : MonoBehaviour
         }
     }
 
-    public void ChangeValues(string questName, string questDescription, int goalAmount, int xpAmount, bool isDaily)
+    public void ChangeValues(string questName, string questDescription, int goalAmount, int xpAmount, bool isDaily, bool[] activeDaysOfTheWeek)
     {
         this.goalAmount = goalAmount;
         completionSlider.maxValue = this.goalAmount;
@@ -113,9 +119,33 @@ public class QuestButton : MonoBehaviour
         this.questDescription = questDescription;
         this.isDaily = isDaily;
         UpdateSlider(true);
+        this.activeDaysOfTheWeek = activeDaysOfTheWeek;
+
+        if (isDaily)
+        {
+            this.activeDaysOfTheWeek = activeDaysOfTheWeek;
+            daysOfWeek = new();
+
+            for (int i = 0; i < 7; i++)
+            {
+                if (activeDaysOfTheWeek[i])
+                {
+                    daysOfWeek.Add(copy[i]);
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < 7; i++)
+            {
+                activeDaysOfTheWeek[i] = false;
+            }
+
+            daysOfWeek = new();
+        }
     }
 
-    public void LoadValues(string questName, string questDescription, int goalAmount, int xpAmount, bool isDaily, float sliderValue, bool isDisabled, int dailyStreak)
+    public void LoadValues(string questName, string questDescription, int goalAmount, int xpAmount, bool isDaily, float sliderValue, bool isDisabled, int dailyStreak, bool[] activeDaysOfTheWeek)
     {
         this.goalAmount = goalAmount;
         completionSlider.maxValue = this.goalAmount;
@@ -127,6 +157,29 @@ public class QuestButton : MonoBehaviour
         isDisabledCover.SetActive(isDisabled);
         UpdateStreak(dailyStreak);
         questNameText.text = isDaily ? $"{questName} ({dailyStreak})" : questName;
+
+        if (isDaily)
+        {
+            this.activeDaysOfTheWeek = activeDaysOfTheWeek;
+            daysOfWeek = new();
+
+            for (int i = 0; i < 7; i++)
+            {
+                if (activeDaysOfTheWeek[i])
+                {
+                    daysOfWeek.Add(copy[i]);
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < 7; i++)
+            {
+                activeDaysOfTheWeek[i] = false;
+            }
+
+            daysOfWeek = new();
+        }
     }
 
     public void Destroy()
@@ -146,6 +199,12 @@ public class QuestButton : MonoBehaviour
         moreMenu.goalAmountInput.text = goalAmount.ToString();
         moreMenu.xpAmountInput.text = xpAmount.ToString();
         moreMenu.dailyToggle.isOn = isDaily;
+        moreMenu.daysOfTheWeekTogglesHolder.SetActive(isDaily);
+
+        for (int i = 0; i < 7; i++)
+        {
+            moreMenu.daysOfTheWeekToggles[i].isOn = activeDaysOfTheWeek[i];
+        }
     }
 
     public Quest GetQuest(int order)
@@ -153,7 +212,7 @@ public class QuestButton : MonoBehaviour
         //Quest quest = new Quest(goalAmount, questName.text, xpAmount, questDescription, isDaily, order);
         //File.WriteAllText(Application.persistentDataPath, JsonUtility.ToJson(quest));
         //Debug.Log(JsonUtility.ToJson(quest));
-        return new Quest(goalAmount, questName, xpAmount, questDescription, isDaily, order, completionSlider.value, isDisabledCover.activeSelf, dailyStreak);
+        return new Quest(goalAmount, questName, xpAmount, questDescription, isDaily, order, completionSlider.value, isDisabledCover.activeSelf, dailyStreak, activeDaysOfTheWeek);
     }
     public void UpdateStreak(int newDailyStreak)
     {

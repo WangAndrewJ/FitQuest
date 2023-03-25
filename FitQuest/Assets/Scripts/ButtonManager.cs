@@ -21,6 +21,7 @@ public class ButtonManager : MonoBehaviour
     public MoreMenu moreMenu;
     public PageSwiper pageSwiper;
     private List<Quest> quests;
+    public Toggle[] daysOfTheWeekToggles = new Toggle[7];
 
     private void Start()
     {
@@ -120,34 +121,69 @@ public class ButtonManager : MonoBehaviour
             return;
         }
 
+        if (dailyToggle.isOn)
+        {
+            bool containsAtLeastOneDay = false;
+
+            foreach (Toggle toggle in daysOfTheWeekToggles)
+            {
+                if (toggle.isOn)
+                {
+                    containsAtLeastOneDay = true;
+                }
+            }
+
+            if (!containsAtLeastOneDay)
+            {
+                Debug.Log($"Button Manager: At Least One Day Of The Week Must Be Selected");
+                return;
+            }
+        }
+
         if (goalAmountText <= 0 || xpAmountText <= 0)
         {
             Debug.Log("Button Manager: Goal and Xp must both be over 0");
         }
 
+        bool[] activeDaysOfTheWeek = new bool[7];
+
+        for (int i = 0; i < 7; i++)
+        {
+            activeDaysOfTheWeek[i] = daysOfTheWeekToggles[i].isOn;
+        }
+
         RectTransform instantiatedQuestButton = Instantiate(questButton, transform).GetComponent<RectTransform>();
         QuestButton alreadyInstantiatedQuestButton = instantiatedQuestButton.GetComponent<QuestButton>();
         instantiatedQuestButton.anchoredPosition = new Vector3(0f, newQuestButton.anchoredPosition.y + 1f, 0f);
-        alreadyInstantiatedQuestButton.ChangeValues(questNameInput.text, questDescriptionInput.text, goalAmountText, xpAmountText, dailyToggle.isOn);
+        alreadyInstantiatedQuestButton.ChangeValues(questNameInput.text, questDescriptionInput.text, goalAmountText, xpAmountText, dailyToggle.isOn, activeDaysOfTheWeek);
         RearrangeButtons();
     }
 
     private void LoadQuest(List<Quest> quests)
     {
         if (quests == null)
-        { return; }
+        {
+            return;
+        }
+
+        bool[] activeDaysOfTheWeek = new bool[7];
+
+        for (int i = 0; i < 7; i++)
+        {
+            activeDaysOfTheWeek[i] = daysOfTheWeekToggles[i].isOn;
+        }
 
         for (int i = 0; i < quests.Count; i++)
         {
             RectTransform instantiatedQuestButton = Instantiate(questButton, transform).GetComponent<RectTransform>();
             QuestButton alreadyInstantiatedQuestButton = instantiatedQuestButton.GetComponent<QuestButton>();
             instantiatedQuestButton.anchoredPosition = new Vector3(0f, 90f - quests[i].order * 135f, 0f);
-            alreadyInstantiatedQuestButton.LoadValues(quests[i].questName, quests[i].questDescription, quests[i].goalAmount, quests[i].xpAmount, quests[i].isDaily, quests[i].sliderValue, quests[i].isDisabled, quests[i].dailyStreak);
+            alreadyInstantiatedQuestButton.LoadValues(quests[i].questName, quests[i].questDescription, quests[i].goalAmount, quests[i].xpAmount, quests[i].isDaily, quests[i].sliderValue, quests[i].isDisabled, quests[i].dailyStreak, quests[i].activeDaysOfTheWeek);
             newQuestButton.anchoredPosition = new Vector3(0f, newQuestButton.anchoredPosition.y - 135f, 0f);
         }
     }
 
-    public void UpdateDaily()
+    public void UpdateDayOfWeek(DayOfWeek dayOfWeek)
     {
         RectTransform[] children = new RectTransform[transform.childCount];
 
@@ -163,19 +199,15 @@ public class ButtonManager : MonoBehaviour
         {
             QuestButton childQuestButton = child.GetComponent<QuestButton>();
 
-            if (childQuestButton.GetQuest(0).isDisabled == false)
+            if (childQuestButton.GetQuest(0).isDaily && childQuestButton.daysOfWeek.Contains(dayOfWeek))
             {
-                childQuestButton.UpdateStreak(0);
-            }
+                if (childQuestButton.GetQuest(0).isDisabled == false)
+                {
+                    childQuestButton.UpdateStreak(0);
+                }
 
-            if (childQuestButton.GetQuest(0).isDaily)
-            {
                 childQuestButton.isDisabledCover.SetActive(false);
                 childQuestButton.completionSlider.value = 0;
-            }
-            else
-            {
-                childQuestButton.isDisabledCover.SetActive(true);
             }
 
             SaveQuests();
