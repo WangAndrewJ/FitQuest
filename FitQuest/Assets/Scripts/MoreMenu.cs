@@ -5,11 +5,13 @@ using UnityEngine.UI;
 
 public class MoreMenu : MonoBehaviour
 {
+    [HideInInspector]
     public QuestButton questButton;
     public TMP_InputField questNameInput;
-    public TMP_InputField questDescriptionInput;
+    public TMP_InputField repsPerSetInput;
     public TMP_InputField goalAmountInput;
     public TMP_InputField xpAmountInput;
+    public TMP_InputField weightInput;
     public Toggle dailyToggle;
     public Toggle[] daysOfTheWeekToggles = new Toggle[7];
     public GameObject daysOfTheWeekTogglesHolder;
@@ -21,13 +23,17 @@ public class MoreMenu : MonoBehaviour
 
     public void EditQuest()
     {
+        int repsPerSet;
         int goalAmount;
         int xpAmount;
+        float weight;
 
         try
         {
+            repsPerSet = int.Parse(repsPerSetInput.text);
             goalAmount = int.Parse(goalAmountInput.text);
             xpAmount = int.Parse(xpAmountInput.text);
+            weight = float.Parse(weightInput.text);
         }
         catch (Exception exception)
         {
@@ -77,7 +83,7 @@ public class MoreMenu : MonoBehaviour
         }
 
         Debug.Log("Past All Checks");
-        questButton.ChangeValues(questNameInput.text, questDescriptionInput.text, goalAmount, xpAmount, dailyToggle.isOn, activeDaysOfTheWeek);
+        questButton.ChangeValues(questNameInput.text, repsPerSet, goalAmount, xpAmount, dailyToggle.isOn, activeDaysOfTheWeek, weight);
         questButton.buttonManager.SaveQuests();
     }
 }

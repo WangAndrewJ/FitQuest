@@ -12,9 +12,10 @@ public class ButtonManager : MonoBehaviour
     public GameObject questButton;
     public RectTransform newQuestButton;
     public TMP_InputField questNameInput;
-    public TMP_InputField questDescriptionInput;
+    public TMP_InputField repsPerSetInput;
     public TMP_InputField goalAmountInput;
     public TMP_InputField xpAmountInput;
+    public TMP_InputField weightInput;
     public Toggle dailyToggle;
     public LevelManager levelManager;
     public DateManager myDateManager;
@@ -107,13 +108,17 @@ public class ButtonManager : MonoBehaviour
 
     public void MakeQuest()
     {
+        int repsPerSetText;
         int goalAmountText;
         int xpAmountText;
+        float weightText;
 
         try
         {
+            repsPerSetText = int.Parse(repsPerSetInput.text);
             goalAmountText = int.Parse(goalAmountInput.text);
             xpAmountText = int.Parse(xpAmountInput.text);
+            weightText = float.Parse(weightInput.text);
         }
         catch (Exception exception)
         {
@@ -155,7 +160,7 @@ public class ButtonManager : MonoBehaviour
         RectTransform instantiatedQuestButton = Instantiate(questButton, transform).GetComponent<RectTransform>();
         QuestButton alreadyInstantiatedQuestButton = instantiatedQuestButton.GetComponent<QuestButton>();
         instantiatedQuestButton.anchoredPosition = new Vector3(0f, newQuestButton.anchoredPosition.y + 1f, 0f);
-        alreadyInstantiatedQuestButton.ChangeValues(questNameInput.text, questDescriptionInput.text, goalAmountText, xpAmountText, dailyToggle.isOn, activeDaysOfTheWeek);
+        alreadyInstantiatedQuestButton.ChangeValues(questNameInput.text, repsPerSetText, goalAmountText, xpAmountText, dailyToggle.isOn, activeDaysOfTheWeek, weightText);
         RearrangeButtons();
     }
 
@@ -178,7 +183,7 @@ public class ButtonManager : MonoBehaviour
             RectTransform instantiatedQuestButton = Instantiate(questButton, transform).GetComponent<RectTransform>();
             QuestButton alreadyInstantiatedQuestButton = instantiatedQuestButton.GetComponent<QuestButton>();
             instantiatedQuestButton.anchoredPosition = new Vector3(0f, 90f - quests[i].order * 135f, 0f);
-            alreadyInstantiatedQuestButton.LoadValues(quests[i].questName, quests[i].questDescription, quests[i].goalAmount, quests[i].xpAmount, quests[i].isDaily, quests[i].sliderValue, quests[i].isDisabled, quests[i].dailyStreak, quests[i].activeDaysOfTheWeek);
+            alreadyInstantiatedQuestButton.LoadValues(quests[i].questName, quests[i].repsPerSet, quests[i].goalAmount, quests[i].xpAmount, quests[i].isDaily, quests[i].sliderValue, quests[i].isDisabled, quests[i].dailyStreak, quests[i].activeDaysOfTheWeek, quests[i].weight);
             newQuestButton.anchoredPosition = new Vector3(0f, newQuestButton.anchoredPosition.y - 135f, 0f);
         }
     }
