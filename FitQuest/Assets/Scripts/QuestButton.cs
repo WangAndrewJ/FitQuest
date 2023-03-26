@@ -53,7 +53,7 @@ public class QuestButton : MonoBehaviour
     private PageSwiper pageSwiper;
     private bool isDaily;
     public GameObject isDisabledCover;
-    public RectTransform rectTransform;
+    //public RectTransform rectTransform;
     private int dailyStreak;
     public bool[] activeDaysOfTheWeek = new bool[7];
     public List<DayOfWeek> daysOfWeek = new() { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday, DayOfWeek.Saturday, DayOfWeek.Sunday };

@@ -9,7 +9,7 @@ using System.IO;
 
 public class ButtonManager : MonoBehaviour
 {
-    public GameObject questButton;
+    public GameObject questButtonPrefab;
     public RectTransform newQuestButton;
     public LevelManager levelManager;
     public DateManager myDateManager;
@@ -176,7 +176,7 @@ public class ButtonManager : MonoBehaviour
             activeDaysOfTheWeek[i] = daysOfTheWeekToggles[i].isOn;
         }
 
-        RectTransform instantiatedQuestButton = Instantiate(questButton, transform).GetComponent<RectTransform>();
+        RectTransform instantiatedQuestButton = Instantiate(questButtonPrefab, transform).GetComponent<RectTransform>();
         QuestButton alreadyInstantiatedQuestButton = instantiatedQuestButton.GetComponent<QuestButton>();
         instantiatedQuestButton.anchoredPosition = new Vector3(0f, newQuestButton.anchoredPosition.y + 1f, 0f);
         alreadyInstantiatedQuestButton.ChangeValues(questNameInput.text, repsPerSetText, goalAmountText, xpAmountText, dailyToggle.isOn, activeDaysOfTheWeek, weightText, false, 0);
@@ -239,7 +239,7 @@ public class ButtonManager : MonoBehaviour
             activeDaysOfTheWeek[i] = cardioDaysOfTheWeekToggles[i].isOn;
         }
 
-        RectTransform instantiatedQuestButton = Instantiate(questButton, transform).GetComponent<RectTransform>();
+        RectTransform instantiatedQuestButton = Instantiate(questButtonPrefab, transform).GetComponent<RectTransform>();
         QuestButton alreadyInstantiatedQuestButton = instantiatedQuestButton.GetComponent<QuestButton>();
         instantiatedQuestButton.anchoredPosition = new Vector3(0f, newQuestButton.anchoredPosition.y + 1f, 0f);
         alreadyInstantiatedQuestButton.ChangeValues(cardioNameInput.text, 0, goalAmountText, xpAmountText, cardioDailyToggle.isOn, activeDaysOfTheWeek, 0, true, secondsText);
@@ -253,16 +253,16 @@ public class ButtonManager : MonoBehaviour
             return;
         }
 
-        bool[] activeDaysOfTheWeek = new bool[7];
+        //bool[] activeDaysOfTheWeek = new bool[7];
 
-        for (int i = 0; i < 7; i++)
-        {
-            activeDaysOfTheWeek[i] = daysOfTheWeekToggles[i].isOn;
-        }
+        //for (int i = 0; i < 7; i++)
+        //{
+        //    activeDaysOfTheWeek[i] = daysOfTheWeekToggles[i].isOn;
+        //}
 
         for (int i = 0; i < quests.Count; i++)
         {
-            RectTransform instantiatedQuestButton = Instantiate(questButton, transform).GetComponent<RectTransform>();
+            RectTransform instantiatedQuestButton = Instantiate(questButtonPrefab, transform).GetComponent<RectTransform>();
             QuestButton alreadyInstantiatedQuestButton = instantiatedQuestButton.GetComponent<QuestButton>();
             instantiatedQuestButton.anchoredPosition = new Vector3(0f, 90f - quests[i].order * 135f, 0f);
             alreadyInstantiatedQuestButton.LoadValues(quests[i].questName, quests[i].repsPerSet, quests[i].goalAmount, quests[i].xpAmount, quests[i].isDaily, quests[i].sliderValue, quests[i].isDisabled, quests[i].dailyStreak, quests[i].activeDaysOfTheWeek, quests[i].weight, quests[i].isCardio, quests[i].seconds);
