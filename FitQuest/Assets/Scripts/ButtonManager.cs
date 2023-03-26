@@ -11,18 +11,30 @@ public class ButtonManager : MonoBehaviour
 {
     public GameObject questButton;
     public RectTransform newQuestButton;
+    public LevelManager levelManager;
+    public DateManager myDateManager;
+    public MoreMenu moreMenu;
+    public EditCardioMenu editCardioMenu;
+    public PageSwiper pageSwiper;
+    private List<Quest> quests;
+    [Space(10)]
+    [Header("Quest Inputs")]
     public TMP_InputField questNameInput;
     public TMP_InputField repsPerSetInput;
     public TMP_InputField goalAmountInput;
     public TMP_InputField xpAmountInput;
     public TMP_InputField weightInput;
     public Toggle dailyToggle;
-    public LevelManager levelManager;
-    public DateManager myDateManager;
-    public MoreMenu moreMenu;
-    public PageSwiper pageSwiper;
-    private List<Quest> quests;
     public Toggle[] daysOfTheWeekToggles = new Toggle[7];
+    [Space(10)]
+    [Header("Cardio Inputs")]
+    public TMP_InputField cardioNameInput;
+    public TMP_InputField secondsInput;
+    public TMP_InputField cardioGoalAmountInput;
+    public TMP_InputField cardioXpAmountInput;
+    public Toggle cardioDailyToggle;
+    public Toggle[] cardioDaysOfTheWeekToggles = new Toggle[7];
+
 
     private void Start()
     {
@@ -145,9 +157,16 @@ public class ButtonManager : MonoBehaviour
             }
         }
 
-        if (goalAmountText <= 0 || xpAmountText <= 0)
+        if (repsPerSetText <= 0 || goalAmountText <= 0 || xpAmountText <= 0 || weightText < 0)
         {
-            Debug.Log("Button Manager: Goal and Xp must both be over 0");
+            Debug.Log("Button Manager: Reps, Sets, and Xp must all be over 0, and Weight must not be less than 0");
+            return;
+        }
+
+        if (questNameInput.text == "")
+        {
+            Debug.Log("Button Manager: Quest name must be filled out");
+            return;
         }
 
         bool[] activeDaysOfTheWeek = new bool[7];
@@ -160,7 +179,70 @@ public class ButtonManager : MonoBehaviour
         RectTransform instantiatedQuestButton = Instantiate(questButton, transform).GetComponent<RectTransform>();
         QuestButton alreadyInstantiatedQuestButton = instantiatedQuestButton.GetComponent<QuestButton>();
         instantiatedQuestButton.anchoredPosition = new Vector3(0f, newQuestButton.anchoredPosition.y + 1f, 0f);
-        alreadyInstantiatedQuestButton.ChangeValues(questNameInput.text, repsPerSetText, goalAmountText, xpAmountText, dailyToggle.isOn, activeDaysOfTheWeek, weightText);
+        alreadyInstantiatedQuestButton.ChangeValues(questNameInput.text, repsPerSetText, goalAmountText, xpAmountText, dailyToggle.isOn, activeDaysOfTheWeek, weightText, false, 0);
+        RearrangeButtons();
+    }
+
+    public void MakeCardio()
+    {
+        int secondsText;
+        int goalAmountText;
+        int xpAmountText;
+
+        try
+        {
+            secondsText = int.Parse(secondsInput.text);
+            goalAmountText = int.Parse(cardioGoalAmountInput.text);
+            xpAmountText = int.Parse(cardioXpAmountInput.text);
+        }
+        catch (Exception exception)
+        {
+            Debug.Log($"Button Manager: {exception}");
+            return;
+        }
+
+        if (cardioDailyToggle.isOn)
+        {
+            bool containsAtLeastOneDay = false;
+
+            foreach (Toggle toggle in cardioDaysOfTheWeekToggles)
+            {
+                if (toggle.isOn)
+                {
+                    containsAtLeastOneDay = true;
+                }
+            }
+
+            if (!containsAtLeastOneDay)
+            {
+                Debug.Log($"Button Manager: At Least One Day Of The Week Must Be Selected");
+                return;
+            }
+        }
+
+        if (secondsText <= 0 || goalAmountText <= 0 || xpAmountText <= 0)
+        {
+            Debug.Log("Button Manager: Seconds, Sets, and Xp must all be over 0");
+            return;
+        }
+
+        if (cardioNameInput.text == "")
+        {
+            Debug.Log("Button Manager: Quest name must be filled out");
+            return;
+        }
+
+        bool[] activeDaysOfTheWeek = new bool[7];
+
+        for (int i = 0; i < 7; i++)
+        {
+            activeDaysOfTheWeek[i] = cardioDaysOfTheWeekToggles[i].isOn;
+        }
+
+        RectTransform instantiatedQuestButton = Instantiate(questButton, transform).GetComponent<RectTransform>();
+        QuestButton alreadyInstantiatedQuestButton = instantiatedQuestButton.GetComponent<QuestButton>();
+        instantiatedQuestButton.anchoredPosition = new Vector3(0f, newQuestButton.anchoredPosition.y + 1f, 0f);
+        alreadyInstantiatedQuestButton.ChangeValues(cardioNameInput.text, 0, goalAmountText, xpAmountText, cardioDailyToggle.isOn, activeDaysOfTheWeek, 0, true, secondsText);
         RearrangeButtons();
     }
 
@@ -183,7 +265,7 @@ public class ButtonManager : MonoBehaviour
             RectTransform instantiatedQuestButton = Instantiate(questButton, transform).GetComponent<RectTransform>();
             QuestButton alreadyInstantiatedQuestButton = instantiatedQuestButton.GetComponent<QuestButton>();
             instantiatedQuestButton.anchoredPosition = new Vector3(0f, 90f - quests[i].order * 135f, 0f);
-            alreadyInstantiatedQuestButton.LoadValues(quests[i].questName, quests[i].repsPerSet, quests[i].goalAmount, quests[i].xpAmount, quests[i].isDaily, quests[i].sliderValue, quests[i].isDisabled, quests[i].dailyStreak, quests[i].activeDaysOfTheWeek, quests[i].weight);
+            alreadyInstantiatedQuestButton.LoadValues(quests[i].questName, quests[i].repsPerSet, quests[i].goalAmount, quests[i].xpAmount, quests[i].isDaily, quests[i].sliderValue, quests[i].isDisabled, quests[i].dailyStreak, quests[i].activeDaysOfTheWeek, quests[i].weight, quests[i].isCardio, quests[i].seconds);
             newQuestButton.anchoredPosition = new Vector3(0f, newQuestButton.anchoredPosition.y - 135f, 0f);
         }
     }

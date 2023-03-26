@@ -3,15 +3,14 @@ using TMPro;
 using System;
 using UnityEngine.UI;
 
-public class MoreMenu : MonoBehaviour
+public class EditCardioMenu : MonoBehaviour
 {
     [HideInInspector]
     public QuestButton questButton;
     //public TMP_InputField questNameInput;
-    public TMP_InputField repsPerSetInput;
+    public TMP_InputField secondsInput;
     public TMP_InputField goalAmountInput;
     public TMP_InputField xpAmountInput;
-    public TMP_InputField weightInput;
     public Toggle dailyToggle;
     public Toggle[] daysOfTheWeekToggles = new Toggle[7];
     public GameObject daysOfTheWeekTogglesHolder;
@@ -23,17 +22,15 @@ public class MoreMenu : MonoBehaviour
 
     public void EditQuest()
     {
-        int repsPerSet;
+        int seconds;
         int goalAmount;
         int xpAmount;
-        float weight;
 
         try
         {
-            repsPerSet = int.Parse(repsPerSetInput.text);
+            seconds = int.Parse(secondsInput.text);
             goalAmount = int.Parse(goalAmountInput.text);
             xpAmount = int.Parse(xpAmountInput.text);
-            weight = float.Parse(weightInput.text);
         }
         catch (Exception exception)
         {
@@ -41,9 +38,9 @@ public class MoreMenu : MonoBehaviour
             return;
         }
 
-        if (repsPerSet <= 0 || goalAmount <= 0 || xpAmount <= 0 || weight < 0)
+        if (seconds <= 0 || goalAmount <= 0 || xpAmount <= 0)
         {
-            Debug.Log("More Menu: Reps, Sets, and Xp must all be over 0, and Weight must not be less than 0");
+            Debug.Log("More Menu: Reps, Seconds, and Xp must all be over 0");
             return;
         }
 
@@ -89,7 +86,7 @@ public class MoreMenu : MonoBehaviour
         }
 
         Debug.Log("Past All Checks");
-        questButton.ChangeValues("", repsPerSet, goalAmount, xpAmount, dailyToggle.isOn, activeDaysOfTheWeek, weight, false, 0);
+        questButton.ChangeValues("", 0, goalAmount, xpAmount, dailyToggle.isOn, activeDaysOfTheWeek, 0, true, seconds);
         questButton.buttonManager.SaveQuests();
     }
 }
