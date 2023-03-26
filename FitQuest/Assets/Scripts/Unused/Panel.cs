@@ -18,6 +18,7 @@ public class Panel : MonoBehaviour
         else
         {
             content.SetActive(false);
+// you found me!
         }
     }
 }
