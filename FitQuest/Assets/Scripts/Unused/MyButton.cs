@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
+using UnityEngine.UI; 
 
 public class MyButton : Button
 {
@@ -9,7 +9,7 @@ public class MyButton : Button
     {
         base.OnPointerDown(eventData);
         Debug.Log("Down");
-        //show text
+        //hi there!
     }
 
     public override void OnPointerUp(PointerEventData eventData)
