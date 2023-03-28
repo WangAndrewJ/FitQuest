@@ -21,7 +21,7 @@ public class DateManager : MonoBehaviour
                 currentDayOfWeek = (int)DateTime.Today.DayOfWeek;
                 PlayerPrefs.SetInt("currentDayOfTheWeek", currentDayOfWeek);
                 myButtonManager.UpdateDayOfWeek(Enum.Parse<DayOfWeek>(currentDayOfWeek.ToString()));
-                myDailyQuestManager.LoadRandomQuests(ListOfExercises.ListOfQuests());
+                myDailyQuestManager.LoadRandomQuests(ListOfExercises.Exercises());
             }
 
             yield return new WaitForSeconds(60);

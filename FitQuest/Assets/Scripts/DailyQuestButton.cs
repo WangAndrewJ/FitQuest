@@ -1,18 +1,17 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System;
-using System.Collections.Generic;
 
 public struct DailyQuest
 {
-    public DailyQuest(int goalAmount, string questName, int xpAmount, float sliderValue, bool isDisabled)
+    public DailyQuest(string questName, int goalAmount, int xpAmount, float sliderValue, bool isDisabled, bool isCardio)
     {
-        this.goalAmount = goalAmount;
         this.questName = questName;
+        this.goalAmount = goalAmount;
         this.xpAmount = xpAmount;
         this.sliderValue = sliderValue;
         this.isDisabled = isDisabled;
+        this.isCardio = isCardio;
     }
 
     public int goalAmount;
@@ -20,6 +19,7 @@ public struct DailyQuest
     public int xpAmount;
     public float sliderValue;
     public bool isDisabled;
+    public bool isCardio;
 }
 
 public class DailyQuestButton : MonoBehaviour
@@ -31,8 +31,10 @@ public class DailyQuestButton : MonoBehaviour
     public DailyQuestManager myDailyQuestManager;
     public TextMeshProUGUI questNameText;
     public GameObject isDisabledCover;
-    //public RectTransform rectTransform;
-    //private int dailyStreak;
+    private bool isCardio;
+    public Image image;
+    public Color strengthColor;
+    public Color cardioColor;
 
     private void Start()
     {
@@ -77,46 +79,7 @@ public class DailyQuestButton : MonoBehaviour
         }
     }
 
-/*    public void ChangeValues(string questName, int repsPerSet, int goalAmount, int xpAmount, bool isDaily, bool[] activeDaysOfTheWeek, float weight, bool isCardio, int seconds)
-    {
-        this.goalAmount = goalAmount;
-        completionSlider.maxValue = this.goalAmount;
-        this.questName = (questName == "") ? this.questName : questName;
-        questNameText.text = isDaily ? $"{this.questName} ({dailyStreak})" : this.questName;
-        this.xpAmount = xpAmount;
-        this.repsPerSet = repsPerSet;
-        this.isDaily = isDaily;
-        UpdateSlider(true);
-        this.activeDaysOfTheWeek = activeDaysOfTheWeek;
-        this.weight = weight;
-        this.isCardio = isCardio;
-        this.seconds = seconds;
-
-        if (isDaily)
-        {
-            this.activeDaysOfTheWeek = activeDaysOfTheWeek;
-            daysOfWeek = new();
-
-            for (int i = 0; i < 7; i++)
-            {
-                if (activeDaysOfTheWeek[i])
-                {
-                    daysOfWeek.Add(copy[i]);
-                }
-            }
-        }
-        else
-        {
-            for (int i = 0; i < 7; i++)
-            {
-                activeDaysOfTheWeek[i] = false;
-            }
-
-            daysOfWeek = new();
-        }
-    }*/
-
-    public void LoadValues(string questName, int goalAmount, int xpAmount, float sliderValue, bool isDisabled)
+    public void LoadValues(string questName, int goalAmount, int xpAmount, float sliderValue, bool isDisabled, bool isCardio)
     {
         this.goalAmount = goalAmount;
         completionSlider.maxValue = this.goalAmount;
@@ -124,10 +87,12 @@ public class DailyQuestButton : MonoBehaviour
         this.xpAmount = xpAmount;
         completionSlider.value = sliderValue;
         isDisabledCover.SetActive(isDisabled);
+        this.isCardio = isCardio;
+        image.color = isCardio ? cardioColor : strengthColor;
     }
 
     public DailyQuest GetQuest()
     {
-        return new DailyQuest(goalAmount, questNameText.text, xpAmount, completionSlider.value, isDisabledCover.activeSelf);
+        return new DailyQuest(questNameText.text, goalAmount, xpAmount, completionSlider.value, isDisabledCover.activeSelf, isCardio);
     }
 }

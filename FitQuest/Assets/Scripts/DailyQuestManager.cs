@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System;
 using System.IO;
 using Newtonsoft.Json;
 
@@ -18,10 +17,10 @@ public class DailyQuestManager : MonoBehaviour
 
             LoadQuests(myQuests);
         }
-        catch (Exception exception)
+        catch (System.Exception exception)
         {
-            Debug.Log("Line 23: " + ListOfExercises.ListOfQuests().Count);
-            LoadRandomQuests(ListOfExercises.ListOfQuests());
+            Debug.Log("Line 23: " + ListOfExercises.Exercises().Count);
+            LoadRandomQuests(ListOfExercises.Exercises());
             Debug.Log($"Daily Quest Manager: {exception}");
         }
     }
@@ -39,18 +38,18 @@ public class DailyQuestManager : MonoBehaviour
         Debug.Log(JsonConvert.SerializeObject(myQuests));
     }
 
-    public void LoadRandomQuests(List<DailyQuest> quests)
+    public void LoadRandomQuests(List<Exercise> quests)
     {
         myQuests = new();
 
         for (int i = 0; i < dailyQuestButtons.Length; i++)
         {
-            Debug.Log("Line 41: " + UnityEngine.Random.Range(0, 1));
-            Debug.Log("Line 42: " + UnityEngine.Random.Range(0, quests.Count));
-            DailyQuest currentQuest = quests[UnityEngine.Random.Range(0, quests.Count)];
-            dailyQuestButtons[i].LoadValues(currentQuest.questName, currentQuest.goalAmount, currentQuest.xpAmount, currentQuest.sliderValue, currentQuest.isDisabled);
-            myQuests.Add(currentQuest);
-            quests.Remove(currentQuest);
+            Exercise currentExercise = quests[Random.Range(0, quests.Count)];
+            int randomGoalAmount = Random.Range(1, 5);
+            DailyQuest currentDailyQuest = new DailyQuest(currentExercise.name, randomGoalAmount, Mathf.RoundToInt(Random.Range(0.5f, 2f) * randomGoalAmount), 0f, false, currentExercise.isCardio);
+            dailyQuestButtons[i].LoadValues(currentExercise.name, randomGoalAmount, Mathf.RoundToInt(Random.Range(0.5f, 2f) * randomGoalAmount), 0f, false, currentExercise.isCardio);
+            myQuests.Add(currentDailyQuest);
+            quests.Remove(currentExercise);
         }
 
         SaveQuests();
@@ -60,7 +59,7 @@ public class DailyQuestManager : MonoBehaviour
     {
         for (int i = 0; i < quests.Count; i++)
         {
-            dailyQuestButtons[i].LoadValues(quests[i].questName, quests[i].goalAmount, quests[i].xpAmount, quests[i].sliderValue, quests[i].isDisabled);
+            dailyQuestButtons[i].LoadValues(quests[i].questName, quests[i].goalAmount, quests[i].xpAmount, quests[i].sliderValue, quests[i].isDisabled, quests[i].isCardio);
         }
     }
 }

@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class ExerciseButton : MonoBehaviour
 {
+    public RectTransform self;
     public Exercise exercise;
     [HideInInspector]
     public string exerciseName;
@@ -15,6 +17,9 @@ public class ExerciseButton : MonoBehaviour
     private TMP_InputField questName;
     private TMP_InputField cardioName;
     private RectTransform content;
+    public Image image;
+    public Color strengthColor;
+    public Color cardioColor;
 
     public void LoadValues(string name, bool isCardio, GameObject newQuestMenu, GameObject newCardioMenu, GameObject defaultQuestsButton, TMP_InputField questName, TMP_InputField cardioName, RectTransform content)
     {
@@ -27,6 +32,7 @@ public class ExerciseButton : MonoBehaviour
         this.questName = questName;
         this.cardioName = cardioName;
         this.content = content;
+        image.color = isCardio ? cardioColor : strengthColor;
     }
 
     public void Select()

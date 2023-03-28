@@ -745,7 +745,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7058824, g: 0.21568628, b: 0.21568628, a: 1}
+  m_Color: {r: 0.49019608, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1237,8 +1237,11 @@ MonoBehaviour:
   questName: 
   questNameText: {fileID: 7851406631171255415}
   isDisabledCover: {fileID: 704498262422584956}
-  rectTransform: {fileID: 5918138796084732679}
-  myStreakCounter: {fileID: 0}
+  activeDaysOfTheWeek: 00000000000000
+  daysOfWeek: 01000000020000000300000004000000050000000600000000000000
+  image: {fileID: 7851406633046081269}
+  strengthColor: {r: 0.7058824, g: 0.21568628, b: 0.21568628, a: 1}
+  cardioColor: {r: 0.3137255, g: 0.5882353, b: 1, a: 1}
 --- !u!1 &7851406631171255369
 GameObject:
   m_ObjectHideFlags: 0

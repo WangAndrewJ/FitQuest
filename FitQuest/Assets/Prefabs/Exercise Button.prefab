@@ -53,9 +53,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8a1ad669297bcf4e97c1b1bd04146ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  self: {fileID: 3063056245016406332}
   exerciseName: 
   isCardio: 0
   nameText: {fileID: 3063056245328401863}
+  image: {fileID: 3063056245016406335}
+  strengthColor: {r: 0.7058824, g: 0.21568628, b: 0.21568628, a: 1}
+  cardioColor: {r: 0.3137255, g: 0.5882353, b: 1, a: 1}
 --- !u!222 &3063056245016406320
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -61,6 +61,9 @@ public class QuestButton : MonoBehaviour
     private float weight;
     private bool isCardio;
     private int seconds;
+    public Image image;
+    public Color strengthColor;
+    public Color cardioColor;
 
     private void Start()
     {
@@ -173,6 +176,7 @@ public class QuestButton : MonoBehaviour
         questNameText.text = isDaily ? $"{questName} ({dailyStreak})" : questName;
         this.weight = weight;
         this.isCardio = isCardio;
+        image.color = isCardio ? cardioColor : strengthColor;
         this.seconds = seconds;
 
         if (isDaily)
