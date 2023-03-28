@@ -201,9 +201,9 @@ public class QuestButton : MonoBehaviour
 
     public void Destroy()
     {
-        transform.position = new Vector3(0f, -1000f, 0f);
-        buttonManager.RearrangeButtons();
+        transform.parent = null;
         Destroy(gameObject);
+        buttonManager.RearrangeButtons();
     }
 
     public void OpenMoreMenu()
