@@ -20,8 +20,9 @@ public class ExerciseButton : MonoBehaviour
     public Image image;
     public Color strengthColor;
     public Color cardioColor;
+    public ExerciseButtonManager exerciseButtonManager;
 
-    public void LoadValues(string name, bool isCardio, GameObject newQuestMenu, GameObject newCardioMenu, GameObject defaultQuestsButton, TMP_InputField questName, TMP_InputField cardioName, RectTransform content)
+    public void LoadValues(string name, bool isCardio, GameObject newQuestMenu, GameObject newCardioMenu, GameObject defaultQuestsButton, TMP_InputField questName, TMP_InputField cardioName, RectTransform content, ExerciseButtonManager manager)
     {
         exerciseName = name;
         this.isCardio = isCardio;
@@ -33,6 +34,7 @@ public class ExerciseButton : MonoBehaviour
         this.cardioName = cardioName;
         this.content = content;
         image.color = isCardio ? cardioColor : strengthColor;
+        exerciseButtonManager = manager;
     }
 
     public void Select()
@@ -50,5 +52,7 @@ public class ExerciseButton : MonoBehaviour
 
         content.anchoredPosition = new Vector3(0f, 0f);
         defaultQuestsButton.SetActive(false);
+
+        exerciseButtonManager.ExitMenu();
     }
 }

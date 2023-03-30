@@ -17,7 +17,8 @@ public class ExerciseButtonManager : MonoBehaviour
     private List<ExerciseButton> startingExerciseButtons;
     private List<RectTransform> children;
     private List<ExerciseButton> exerciseButtons;
-    private bool isFirstTime = true;
+    //private bool isFirstTime = true;
+    public TMP_InputField searchBar;
 
     private void OnEnable()
     {
@@ -46,26 +47,23 @@ public class ExerciseButtonManager : MonoBehaviour
             RectTransform instantiatedExerciseButton = Instantiate(exerciseButtonPrefab, transform).GetComponent<RectTransform>();
             ExerciseButton alreadyInstantiatedExerciseButton = instantiatedExerciseButton.GetComponent<ExerciseButton>();
             instantiatedExerciseButton.anchoredPosition = new Vector3(0f, 90f - i * 135f, 0f);
-            alreadyInstantiatedExerciseButton.LoadValues(exercises[i].name, exercises[i].isCardio, newQuestMenu, newCardioMenu, defaultQuestsMenu, questName, cardioName, content);
+            alreadyInstantiatedExerciseButton.LoadValues(exercises[i].name, exercises[i].isCardio, newQuestMenu, newCardioMenu, defaultQuestsMenu, questName, cardioName, content, this);
             children.Add(instantiatedExerciseButton);
             exerciseButtons.Add(alreadyInstantiatedExerciseButton);
         }
 
-        if (isFirstTime)
-        {
-            startingExerciseButtons = exerciseButtons;
-            Debug.Log(startingExerciseButtons.Count);
-        }
+        startingExerciseButtons = exerciseButtons;
+        Debug.Log(startingExerciseButtons.Count);
 
         Debug.Log(exercises.Count);
         float height = exercises.Count * 13.5f + 100f;
         content.sizeDelta = new Vector2(0f, height);
         self.anchoredPosition = new Vector3(0f, height / 2f - 70f);
-        isFirstTime = false;
+        //isFirstTime = false;
         RearrangeButtons();
     }
 
-    public void OnSearchChange(TMP_InputField searchBar)
+    public void OnSearchChange()
     {
         children = new();
         exerciseButtons = new();
@@ -104,6 +102,11 @@ public class ExerciseButtonManager : MonoBehaviour
 
     public void ExitMenu()
     {
+        searchBar.text = "";
 
+        foreach (ExerciseButton button in startingExerciseButtons)
+        {
+            Destroy(button.gameObject);
+        }
     }
 }

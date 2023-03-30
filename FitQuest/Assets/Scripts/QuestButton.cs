@@ -136,6 +136,7 @@ public class QuestButton : MonoBehaviour
         this.activeDaysOfTheWeek = activeDaysOfTheWeek;
         this.weight = weight;
         this.isCardio = isCardio;
+        image.color = isCardio ? cardioColor : strengthColor;
         this.seconds = seconds;
 
         if (isDaily)
