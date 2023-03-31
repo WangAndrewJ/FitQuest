@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 public struct Quest
@@ -78,7 +79,8 @@ public class QuestButton : MonoBehaviour
     {
         if (isAdding)
         {
-            levelManager.ChangeCurrentLevelAndXp(xpAmount);
+            //levelManager.ChangeCurrentLevelAndXp(xpAmount);
+            StartCoroutine(IncrementXp(xpAmount, true));
             completionSlider.value++;
 
             UpdateSlider(false);
@@ -87,12 +89,22 @@ public class QuestButton : MonoBehaviour
         {
             if (completionSlider.value > 0)
             {
-                levelManager.ChangeCurrentLevelAndXp(-xpAmount);
+                //levelManager.ChangeCurrentLevelAndXp(-xpAmount);
+                StartCoroutine(IncrementXp(xpAmount, false));
                 completionSlider.value--;
             }
         }
 
         buttonManager.SaveQuests();
+    }
+
+    private IEnumerator IncrementXp(int xpAmount, bool isAdding)
+    {
+        for (int i = 0; i < xpAmount; i++)
+        {
+            levelManager.ChangeCurrentLevelAndXp(isAdding ? 1 : -1);
+            yield return new WaitForSeconds(0.25f);
+        }
     }
 
     private void UpdateSlider(bool isAlreadyComplete)

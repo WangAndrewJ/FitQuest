@@ -9,12 +9,18 @@ public class StatManager : MonoBehaviour
     public TMP_InputField statInput;
     private Stat currentStat;
     public Stat[] decimalStats;
+    public Stat[] clampedIntStats;
 
     private void Start()
     {
         foreach (Stat stat in decimalStats)
         {
             stat.statText.text = $"{stat.statName}: {PlayerPrefs.GetFloat(stat.statName)}";
+        }
+
+        foreach (Stat stat in clampedIntStats)
+        {
+            stat.statText.text = $"{stat.statName}: {PlayerPrefs.GetInt(stat.statName, stat.maxStat)} / {PlayerPrefs.GetInt($"{PlayerPrefs.GetInt(stat.statName)}.maxStat", stat.maxStat)}";
         }
     }
 
@@ -44,7 +50,7 @@ public class StatManager : MonoBehaviour
             return;
         }
 
-        currentStat.statText.text = $"{currentStat.statName}: {statInput.text}";
+        currentStat.statText.text = currentStat.maxStat > 0 ? $"{currentStat.statName}: {parsedStatInput} / {PlayerPrefs.GetInt($"{PlayerPrefs.GetInt(currentStat.statName)}.maxStat", currentStat.maxStat)}" : $"{currentStat.statName}: {statInput.text}";
         PlayerPrefs.SetFloat(currentStat.statName, parsedStatInput);
     }
 }
