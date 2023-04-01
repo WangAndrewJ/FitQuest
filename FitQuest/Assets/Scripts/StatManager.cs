@@ -8,26 +8,35 @@ public class StatManager : MonoBehaviour
     public GameObject EditMenu;
     public TMP_InputField statInput;
     private Stat currentStat;
+    public Stat healthStat;
+    public Stat attackStat;
+    public Stat speedStat;
     public Stat[] decimalStats;
+    public Stat[] intStats;
     public Stat[] clampedIntStats;
 
     private void Start()
     {
         foreach (Stat stat in decimalStats)
         {
-            stat.statText.text = $"{stat.statName}: {PlayerPrefs.GetFloat(stat.statName)}";
+            stat.statText.text = $"{stat.statName}: {PlayerPrefs.GetFloat(stat.statName, stat.defaultFloat)}";
+        }
+
+        foreach (Stat stat in intStats)
+        {
+            stat.statText.text = $"{stat.statName}: {PlayerPrefs.GetInt(stat.statName, stat.defaultInt)}";
         }
 
         foreach (Stat stat in clampedIntStats)
         {
-            stat.statText.text = $"{stat.statName}: {PlayerPrefs.GetInt(stat.statName, stat.maxStat)} / {PlayerPrefs.GetInt($"{PlayerPrefs.GetInt(stat.statName)}.maxStat", stat.maxStat)}";
+            stat.statText.text = $"{stat.statName}: {PlayerPrefs.GetInt(stat.statName, stat.defaultInt)} / {PlayerPrefs.GetInt($"{stat.statName}.maxStat", stat.maxStat)}";
         }
     }
 
     public void EnableEditMenu(Stat stat)
     {
         currentStat = stat;
-        placeholder.text = currentStat.statName;
+        placeholder.text = stat.statName;
         EditMenu.SetActive(true);
     }
 
@@ -50,7 +59,33 @@ public class StatManager : MonoBehaviour
             return;
         }
 
-        currentStat.statText.text = currentStat.maxStat > 0 ? $"{currentStat.statName}: {parsedStatInput} / {PlayerPrefs.GetInt($"{PlayerPrefs.GetInt(currentStat.statName)}.maxStat", currentStat.maxStat)}" : $"{currentStat.statName}: {statInput.text}";
+        currentStat.statText.text = currentStat.maxStat > 0 ? $"{currentStat.statName}: {parsedStatInput} / {PlayerPrefs.GetInt($"{currentStat.statName}.maxStat", currentStat.maxStat)}" : $"{currentStat.statName}: {statInput.text}";
         PlayerPrefs.SetFloat(currentStat.statName, parsedStatInput);
+    }
+
+    public void ChangeStat(int change, Stat stat)
+    {
+        if (change <= 0)
+        {
+            return;
+        }
+
+        int newValue = PlayerPrefs.GetInt(stat.statName, stat.defaultInt) + change;
+
+        stat.statText.text = $"{stat.statName}: {newValue}";
+        PlayerPrefs.SetInt(stat.statName, newValue);
+    }
+
+    public void ChangeClampedStat(int change, Stat stat)
+    {
+        if (change <= 0)
+        {
+            return;
+        }
+
+        int newValue = Mathf.Clamp(PlayerPrefs.GetInt(stat.statName, stat.defaultInt) + change, 0, stat.maxStat);
+
+        stat.statText.text = $"{stat.statName}: {newValue} / {PlayerPrefs.GetInt($"{stat.statName}.maxStat", stat.maxStat)}";
+        PlayerPrefs.SetInt(stat.statName, newValue);
     }
 }

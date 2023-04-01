@@ -46,7 +46,6 @@ public class DailyQuestButton : MonoBehaviour
     {
         if (isAdding)
         {
-            levelManager.ChangeCurrentLevelAndXp(xpAmount);
             completionSlider.value++;
 
             UpdateSlider(false);
@@ -55,7 +54,6 @@ public class DailyQuestButton : MonoBehaviour
         {
             if (completionSlider.value > 0)
             {
-                levelManager.ChangeCurrentLevelAndXp(-xpAmount);
                 completionSlider.value--;
             }
         }
@@ -69,6 +67,7 @@ public class DailyQuestButton : MonoBehaviour
         {
             if (!isAlreadyComplete)
             {
+                levelManager.ChangeCurrentLevelAndXp(xpAmount);
                 isDisabledCover.SetActive(true);
                 myDailyQuestManager.SaveQuests();
             }

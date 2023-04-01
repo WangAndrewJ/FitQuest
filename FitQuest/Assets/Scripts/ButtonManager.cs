@@ -16,6 +16,7 @@ public class ButtonManager : MonoBehaviour
     public MoreMenu moreMenu;
     public EditCardioMenu editCardioMenu;
     public PageSwiper pageSwiper;
+    public StatManager myStatManager;
     private List<Quest> quests;
     public RectTransform content;
     [Space(10)]
@@ -77,7 +78,6 @@ public class ButtonManager : MonoBehaviour
         }
 
         File.WriteAllText(Path.Combine(Application.persistentDataPath, "questsdata.json"), JsonConvert.SerializeObject(quests));
-        Debug.Log(JsonConvert.SerializeObject(quests));
     }
 
     public void RearrangeButtons()

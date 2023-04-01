@@ -1242,6 +1242,7 @@ MonoBehaviour:
   image: {fileID: 7851406633046081269}
   strengthColor: {r: 0.7058824, g: 0.21568628, b: 0.21568628, a: 1}
   cardioColor: {r: 0.3137255, g: 0.5882353, b: 1, a: 1}
+  popupPrefab: {fileID: 6438770166016703494, guid: fbb09f93849a99047b87e0a01361b275, type: 3}
 --- !u!1 &7851406631171255369
 GameObject:
   m_ObjectHideFlags: 0

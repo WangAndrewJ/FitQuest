@@ -35,7 +35,6 @@ public class DailyQuestManager : MonoBehaviour
         }
 
         File.WriteAllText(Path.Combine(Application.persistentDataPath, "dailyquests.json"), JsonConvert.SerializeObject(myQuests));
-        Debug.Log(JsonConvert.SerializeObject(myQuests));
     }
 
     public void LoadRandomQuests(List<Exercise> quests)
@@ -47,7 +46,7 @@ public class DailyQuestManager : MonoBehaviour
             Exercise currentExercise = quests[Random.Range(0, quests.Count)];
             int randomGoalAmount = Random.Range(1, 5);
             DailyQuest currentDailyQuest = new DailyQuest(currentExercise.name, randomGoalAmount, Mathf.RoundToInt(Random.Range(0.5f, 2f) * randomGoalAmount), 0f, false, currentExercise.isCardio);
-            dailyQuestButtons[i].LoadValues(currentExercise.name, randomGoalAmount, Mathf.RoundToInt(Random.Range(0.5f, 2f) * randomGoalAmount), 0f, false, currentExercise.isCardio);
+            dailyQuestButtons[i].LoadValues(currentExercise.name, randomGoalAmount, Mathf.RoundToInt(Random.Range(0.55f, 2f) * randomGoalAmount), 0f, false, currentExercise.isCardio);
             myQuests.Add(currentDailyQuest);
             quests.Remove(currentExercise);
         }

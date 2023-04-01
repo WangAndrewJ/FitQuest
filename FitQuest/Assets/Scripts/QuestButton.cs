@@ -50,6 +50,7 @@ public class QuestButton : MonoBehaviour
     public TextMeshProUGUI questNameText;
     private MoreMenu moreMenu;
     private EditCardioMenu editCardioMenu;
+    private StatManager myStatManager;
     private int repsPerSet;
     private PageSwiper pageSwiper;
     private bool isDaily;
@@ -65,6 +66,7 @@ public class QuestButton : MonoBehaviour
     public Image image;
     public Color strengthColor;
     public Color cardioColor;
+    public GameObject popupPrefab;
 
     private void Start()
     {
@@ -73,6 +75,7 @@ public class QuestButton : MonoBehaviour
         moreMenu = buttonManager.moreMenu;
         editCardioMenu = buttonManager.editCardioMenu;
         pageSwiper = buttonManager.pageSwiper;
+        myStatManager = buttonManager.myStatManager;
     }
 
     public void ChangeXp(bool isAdding)
@@ -115,6 +118,7 @@ public class QuestButton : MonoBehaviour
             {
                 if (!isAlreadyComplete)
                 {
+                    ChangeStats();
                     isDisabledCover.SetActive(true);
                     IncreaseStreak(1);
                     buttonManager.SaveQuests();
@@ -122,17 +126,26 @@ public class QuestButton : MonoBehaviour
             }
             else
             {
+                ChangeStats();
                 isDisabledCover.SetActive(false);
-                Debug.Log("Complete!");
-                transform.parent = null;
                 Destroy();
-                //Destroy(gameObject);
             }
         }
         else
         {
             isDisabledCover.SetActive(false);
         }
+    }
+
+    private void ChangeStats()
+    {
+        Stat statToChange = isCardio ? myStatManager.speedStat : myStatManager.attackStat;
+        int statToChangeChange = Mathf.RoundToInt(UnityEngine.Random.Range(0.55f, 2f) * goalAmount);
+        int healthChange = Mathf.RoundToInt(UnityEngine.Random.Range(0.55f, 2f) * goalAmount);
+        myStatManager.ChangeStat(statToChangeChange, statToChange);
+        myStatManager.ChangeClampedStat(healthChange, myStatManager.healthStat);
+        GameObject popup = Instantiate(popupPrefab, transform.position, Quaternion.identity, pageSwiper.transform);
+        popup.GetComponent<TextMeshProUGUI>().text = $"+ {statToChangeChange} {statToChange.name}{(PlayerPrefs.GetInt(myStatManager.healthStat.statName) != PlayerPrefs.GetInt($"{myStatManager.healthStat.statName}.maxStat", myStatManager.healthStat.maxStat) ? $"\n+ {healthChange} Health" : "")}";
     }
 
     public void ChangeValues(string questName, int repsPerSet, int goalAmount, int xpAmount, bool isDaily, bool[] activeDaysOfTheWeek, float weight, bool isCardio, int seconds)
