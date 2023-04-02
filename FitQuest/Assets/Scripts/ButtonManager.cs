@@ -37,7 +37,6 @@ public class ButtonManager : MonoBehaviour
     public Toggle cardioDailyToggle;
     public Toggle[] cardioDaysOfTheWeekToggles = new Toggle[7];
 
-
     private void Start()
     {
         try

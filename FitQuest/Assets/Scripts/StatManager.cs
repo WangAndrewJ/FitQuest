@@ -14,6 +14,9 @@ public class StatManager : MonoBehaviour
     public Stat[] decimalStats;
     public Stat[] intStats;
     public Stat[] clampedIntStats;
+    public int healthBoost;
+    public float attackMultiplier;
+    public float speedMultiplier;
 
     private void Start()
     {

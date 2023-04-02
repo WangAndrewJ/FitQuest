@@ -25,7 +25,7 @@ public struct DailyQuest
 public class DailyQuestButton : MonoBehaviour
 {
     public int xpAmount = 1;
-    private LevelManager levelManager;
+    public LevelManager myLevelManger;
     public Slider completionSlider;
     public int goalAmount = 1;
     public DailyQuestManager myDailyQuestManager;
@@ -35,12 +35,6 @@ public class DailyQuestButton : MonoBehaviour
     public Image image;
     public Color strengthColor;
     public Color cardioColor;
-
-    private void Start()
-    {
-        myDailyQuestManager = transform.parent.GetComponent<DailyQuestManager>();
-        levelManager = myDailyQuestManager.myLevelManager;
-    }
 
     public void ChangeXp(bool isAdding)
     {
@@ -67,7 +61,7 @@ public class DailyQuestButton : MonoBehaviour
         {
             if (!isAlreadyComplete)
             {
-                levelManager.ChangeCurrentLevelAndXp(xpAmount);
+                myLevelManger.ChangeCurrentLevelAndXp(xpAmount);
                 isDisabledCover.SetActive(true);
                 myDailyQuestManager.SaveQuests();
             }

@@ -138,7 +138,7 @@ public class QuestButton : MonoBehaviour
     }
 
     private void ChangeStats()
-    {
+    {   // lines 143-144: add power up multiplier
         Stat statToChange = isCardio ? myStatManager.speedStat : myStatManager.attackStat;
         int statToChangeChange = Mathf.RoundToInt(UnityEngine.Random.Range(0.55f, 2f) * goalAmount);
         int healthChange = Mathf.RoundToInt(UnityEngine.Random.Range(0.55f, 2f) * goalAmount);
