@@ -108,6 +108,11 @@ public class QuestButton : MonoBehaviour
             levelManager.ChangeCurrentLevelAndXp(isAdding ? 1 : -1);
             yield return new WaitForSeconds(0.25f);
         }
+
+        if (!isDaily && completionSlider.value == goalAmount)
+        {
+            Destroy();
+        }
     }
 
     private void UpdateSlider(bool isAlreadyComplete)
@@ -128,7 +133,8 @@ public class QuestButton : MonoBehaviour
             {
                 ChangeStats();
                 isDisabledCover.SetActive(false);
-                Destroy();
+                transform.parent = null;
+                buttonManager.RearrangeButtons();
             }
         }
         else
@@ -143,9 +149,9 @@ public class QuestButton : MonoBehaviour
         int statToChangeChange = Mathf.RoundToInt(UnityEngine.Random.Range(0.55f, 2f) * goalAmount);
         int healthChange = Mathf.RoundToInt(UnityEngine.Random.Range(0.55f, 2f) * goalAmount);
         myStatManager.ChangeStat(statToChangeChange, statToChange);
-        myStatManager.ChangeClampedStat(healthChange, myStatManager.healthStat);
+        //myStatManager.ChangeClampedStat(healthChange, myStatManager.healthStat);
         GameObject popup = Instantiate(popupPrefab, transform.position, Quaternion.identity, pageSwiper.transform);
-        popup.GetComponent<TextMeshProUGUI>().text = $"+ {statToChangeChange} {statToChange.name}{(PlayerPrefs.GetInt(myStatManager.healthStat.statName) != PlayerPrefs.GetInt($"{myStatManager.healthStat.statName}.maxStat", myStatManager.healthStat.maxStat) ? $"\n+ {healthChange} Health" : "")}";
+        popup.GetComponent<TextMeshProUGUI>().text = $"+ {statToChangeChange} {statToChange.name}";
     }
 
     public void ChangeValues(string questName, int repsPerSet, int goalAmount, int xpAmount, bool isDaily, bool[] activeDaysOfTheWeek, float weight, bool isCardio, int seconds)

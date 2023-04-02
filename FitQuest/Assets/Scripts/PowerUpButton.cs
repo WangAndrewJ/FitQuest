@@ -1,7 +1,7 @@
-using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Assets.Scripts.Other;
 
 public enum TypeOfPowerUp
 {
@@ -43,30 +43,14 @@ public class PowerUpButton : MonoBehaviour
                 break;
         }
 
-        text.text = $"Collect {Split(typeOfPowerUp.ToString())}";
-    }
-
-    private string Split(string input)
-    {
-        string result = "";
-
-        for (int i = 0; i < input.Length; i++)
-        {
-            if (char.IsUpper(input[i]))
-            {
-                result += ' ';
-            }
-
-            result += input[i];
-        }
-
-        return result.Trim();
+        text.text = $"Collect {Util.Split(typeOfPowerUp.ToString())}";
     }
 
     public void Collect()
     {
         cover.SetActive(true);
+        string name = $"amountOf{myTypeOfPowerUp}";
+        PlayerPrefs.SetInt(name, PlayerPrefs.GetInt(name, 0) + 1);
         myDailyQuestManager.SavePowerUp();
-        // save this in playerprefs
     }
 }

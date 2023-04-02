@@ -9,6 +9,7 @@ public class LevelManager : MonoBehaviour
     public int currentXp = 0;
     public int totalXp;
     public LevelVisual levelVisual;
+    public StatManager myStatManager;
 
     private void Start()
     {
@@ -43,6 +44,7 @@ public class LevelManager : MonoBehaviour
         }
 
         levelVisual.UpdateValues(maxXp, currentXp, level);
+        myStatManager.UpdateMaxHealth();
     }
 
     public void ChangeCurrentLevelAndXp(int increment)

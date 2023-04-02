@@ -7,6 +7,7 @@ public class StatManager : MonoBehaviour
     public TextMeshProUGUI placeholder;
     public GameObject EditMenu;
     public TMP_InputField statInput;
+    public LevelManager myLevelManager;
     private Stat currentStat;
     public Stat healthStat;
     public Stat attackStat;
@@ -14,12 +15,14 @@ public class StatManager : MonoBehaviour
     public Stat[] decimalStats;
     public Stat[] intStats;
     public Stat[] clampedIntStats;
-    public int healthBoost;
+    //public int healthBoost;
     public float attackMultiplier;
     public float speedMultiplier;
 
     private void Start()
     {
+        UpdateMaxHealth();
+
         foreach (Stat stat in decimalStats)
         {
             stat.statText.text = $"{stat.statName}: {PlayerPrefs.GetFloat(stat.statName, stat.defaultFloat)}";
@@ -29,11 +32,16 @@ public class StatManager : MonoBehaviour
         {
             stat.statText.text = $"{stat.statName}: {PlayerPrefs.GetInt(stat.statName, stat.defaultInt)}";
         }
+    }
 
-        foreach (Stat stat in clampedIntStats)
-        {
-            stat.statText.text = $"{stat.statName}: {PlayerPrefs.GetInt(stat.statName, stat.defaultInt)} / {PlayerPrefs.GetInt($"{stat.statName}.maxStat", stat.maxStat)}";
-        }
+    public void UpdateMaxHealth()
+    {
+        int newMax = healthStat.maxStat + myLevelManager.level * 5;
+        int currentValue = PlayerPrefs.GetInt(healthStat.statName, healthStat.defaultInt);
+        PlayerPrefs.SetInt("Health.maxStat", newMax);
+        PlayerPrefs.SetInt("Health", currentValue > newMax ? newMax : currentValue);
+
+        healthStat.statText.text = $"Health: {PlayerPrefs.GetInt("Health", healthStat.defaultInt)} / {PlayerPrefs.GetInt($"Health.maxStat", healthStat.maxStat)}";
     }
 
     public void EnableEditMenu(Stat stat)
@@ -86,9 +94,10 @@ public class StatManager : MonoBehaviour
             return;
         }
 
-        int newValue = Mathf.Clamp(PlayerPrefs.GetInt(stat.statName, stat.defaultInt) + change, 0, stat.maxStat);
+        int maxStat = PlayerPrefs.GetInt($"{stat.statName}.maxStat", stat.maxStat);
+        int newValue = Mathf.Clamp(PlayerPrefs.GetInt(stat.statName, stat.defaultInt) + change, 0, maxStat);
 
-        stat.statText.text = $"{stat.statName}: {newValue} / {PlayerPrefs.GetInt($"{stat.statName}.maxStat", stat.maxStat)}";
+        stat.statText.text = $"{stat.statName}: {newValue} / {maxStat}";
         PlayerPrefs.SetInt(stat.statName, newValue);
     }
 }

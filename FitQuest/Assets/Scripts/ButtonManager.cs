@@ -42,6 +42,12 @@ public class ButtonManager : MonoBehaviour
         try
         {
             quests = JsonConvert.DeserializeObject<List<Quest>>(File.ReadAllText(Path.Combine(Application.persistentDataPath, "questsdata.json")));
+
+            if (quests == null)
+            {
+                quests = new();
+            }
+
             LoadQuest(quests);
         }
         catch (Exception exception)
@@ -181,6 +187,7 @@ public class ButtonManager : MonoBehaviour
         QuestButton alreadyInstantiatedQuestButton = instantiatedQuestButton.GetComponent<QuestButton>();
         instantiatedQuestButton.anchoredPosition = new Vector3(0f, newQuestButton.anchoredPosition.y + 1f, 0f);
         alreadyInstantiatedQuestButton.ChangeValues(questNameInput.text, repsPerSetText, goalAmountText, xpAmountText, dailyToggle.isOn, activeDaysOfTheWeek, weightText, false, 0);
+        Debug.Log(quests);
         content.sizeDelta = new Vector2(0f, quests.Count * 135f + 200f);
         RearrangeButtons();
     }
