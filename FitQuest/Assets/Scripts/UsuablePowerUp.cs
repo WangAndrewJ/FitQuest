@@ -9,6 +9,7 @@ public class UsuablePowerUp : MonoBehaviour
     public GameObject cover;
     public StatManager myStatManager;
     public LevelManager myLevelManager;
+    public DateManager myDateManager;
     private int amountOfPowerUps;
     private string nameOfPowerUp;
     private string splitName;
@@ -22,7 +23,6 @@ public class UsuablePowerUp : MonoBehaviour
     private void OnEnable()
     {
         amountOfPowerUps = PlayerPrefs.GetInt(nameOfPowerUp, 0);
-        Debug.Log(splitName);
         text.text = $"{splitName} ({amountOfPowerUps})";
     }
 
@@ -33,7 +33,7 @@ public class UsuablePowerUp : MonoBehaviour
             amountOfPowerUps--;
             PlayerPrefs.SetInt(nameOfPowerUp, amountOfPowerUps);
             text.text = $"{splitName} ({amountOfPowerUps})";
-            cover.SetActive(true);
+            cover.SetActive(myTypeOfPowerUp != TypeOfPowerUp.Heal);
 
             switch (myTypeOfPowerUp)
             {
@@ -41,12 +41,16 @@ public class UsuablePowerUp : MonoBehaviour
                     Heal();
                     break;
                 case TypeOfPowerUp.AttackMultiplier:
+                    myDateManager.StartCountDown(0);
+                    break;
                 case TypeOfPowerUp.AttackGainMultiplier:
-
+                    myDateManager.StartCountDown(1);
                     break;
                 case TypeOfPowerUp.SpeedMultiplier:
+                    myDateManager.StartCountDown(2);
+                    break;
                 case TypeOfPowerUp.SpeedGainMultiplier:
-
+                    myDateManager.StartCountDown(3);
                     break;
             }
         }

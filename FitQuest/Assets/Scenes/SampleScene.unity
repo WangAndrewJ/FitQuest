@@ -5402,6 +5402,7 @@ MonoBehaviour:
   cover: {fileID: 1131314997}
   myStatManager: {fileID: 0}
   myLevelManager: {fileID: 0}
+  myDateManager: {fileID: 1882700234}
 --- !u!1 &431183965
 GameObject:
   m_ObjectHideFlags: 0
@@ -6253,8 +6254,8 @@ RectTransform:
   - {fileID: 1005386002}
   - {fileID: 1077359173}
   - {fileID: 1594401794}
-  - {fileID: 814803278}
   - {fileID: 721052246}
+  - {fileID: 814803278}
   - {fileID: 1426900960}
   - {fileID: 1741210730}
   m_Father: {fileID: 485537962}
@@ -6520,6 +6521,7 @@ MonoBehaviour:
   EditMenu: {fileID: 1023846255}
   statInput: {fileID: 770791301}
   myLevelManager: {fileID: 1882700232}
+  myDateManager: {fileID: 1882700234}
   healthStat: {fileID: 719139466}
   attackStat: {fileID: 1812661818}
   speedStat: {fileID: 1945245174}
@@ -6528,9 +6530,14 @@ MonoBehaviour:
   intStats:
   - {fileID: 1812661818}
   - {fileID: 1945245174}
-  clampedIntStats: []
-  attackMultiplier: 0
-  speedMultiplier: 0
+  boostedAttackColor: {r: 0.7058824, g: 0.21568628, b: 0.21568628, a: 1}
+  boostedSpeedColor: {r: 0.3137255, g: 0.5882353, b: 1, a: 1}
+  normalColor: {r: 1, g: 1, b: 0.78431374, a: 1}
+  covers:
+  - {fileID: 1124170448}
+  - {fileID: 1131314997}
+  - {fileID: 450701288}
+  - {fileID: 394280605}
 --- !u!1 &485537961
 GameObject:
   m_ObjectHideFlags: 0
@@ -11044,7 +11051,7 @@ RectTransform:
   - {fileID: 427523227}
   - {fileID: 1131314998}
   m_Father: {fileID: 474030397}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -12504,7 +12511,7 @@ RectTransform:
   - {fileID: 1233240803}
   - {fileID: 450701289}
   m_Father: {fileID: 474030397}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -19299,6 +19306,7 @@ MonoBehaviour:
   cover: {fileID: 450701288}
   myStatManager: {fileID: 0}
   myLevelManager: {fileID: 0}
+  myDateManager: {fileID: 1882700234}
 --- !u!1 &1242763773
 GameObject:
   m_ObjectHideFlags: 0
@@ -19586,6 +19594,7 @@ MonoBehaviour:
   cover: {fileID: 394280605}
   myStatManager: {fileID: 0}
   myLevelManager: {fileID: 0}
+  myDateManager: {fileID: 1882700234}
 --- !u!1 &1283088107
 GameObject:
   m_ObjectHideFlags: 0
@@ -23448,6 +23457,7 @@ MonoBehaviour:
   cover: {fileID: 387416778}
   myStatManager: {fileID: 477094092}
   myLevelManager: {fileID: 1882700232}
+  myDateManager: {fileID: 1882700234}
 --- !u!1 &1520661827
 GameObject:
   m_ObjectHideFlags: 0
@@ -28051,6 +28061,7 @@ MonoBehaviour:
   cover: {fileID: 1124170448}
   myStatManager: {fileID: 0}
   myLevelManager: {fileID: 0}
+  myDateManager: {fileID: 1882700234}
 --- !u!1 &1761837441
 GameObject:
   m_ObjectHideFlags: 0
@@ -30012,7 +30023,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myButtonManager: {fileID: 745339724}
   myDailyQuestManager: {fileID: 848466449}
-  currentDayOfWeek: 0
+  myStatManager: {fileID: 477094092}
+  currentBoosts: 00000000
+  powerUpDuration: 3
 --- !u!1 &1882773399
 GameObject:
   m_ObjectHideFlags: 0

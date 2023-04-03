@@ -51,6 +51,7 @@ public class QuestButton : MonoBehaviour
     private MoreMenu moreMenu;
     private EditCardioMenu editCardioMenu;
     private StatManager myStatManager;
+    private DateManager myDateManager;
     private int repsPerSet;
     private PageSwiper pageSwiper;
     private bool isDaily;
@@ -76,6 +77,7 @@ public class QuestButton : MonoBehaviour
         editCardioMenu = buttonManager.editCardioMenu;
         pageSwiper = buttonManager.pageSwiper;
         myStatManager = buttonManager.myStatManager;
+        myDateManager = buttonManager.myDateManager;
     }
 
     public void ChangeXp(bool isAdding)
@@ -146,12 +148,13 @@ public class QuestButton : MonoBehaviour
     private void ChangeStats()
     {   // lines 143-144: add power up multiplier
         Stat statToChange = isCardio ? myStatManager.speedStat : myStatManager.attackStat;
-        int statToChangeChange = Mathf.RoundToInt(UnityEngine.Random.Range(0.55f, 2f) * goalAmount);
-        int healthChange = Mathf.RoundToInt(UnityEngine.Random.Range(0.55f, 2f) * goalAmount);
+        string name = isCardio ? "Speed" : "Attack";
+        bool isBoosted = isCardio ? myDateManager.currentBoosts[3] : myDateManager.currentBoosts[1];
+        float boostMultiplier = isBoosted ? 1.5f : 1f;
+        int statToChangeChange = Mathf.RoundToInt(UnityEngine.Random.Range(0.55f, 2f) * goalAmount * boostMultiplier);
         myStatManager.ChangeStat(statToChangeChange, statToChange);
-        //myStatManager.ChangeClampedStat(healthChange, myStatManager.healthStat);
         GameObject popup = Instantiate(popupPrefab, transform.position, Quaternion.identity, pageSwiper.transform);
-        popup.GetComponent<TextMeshProUGUI>().text = $"+ {statToChangeChange} {statToChange.name}";
+        popup.GetComponent<TextMeshProUGUI>().text = $"+ {statToChangeChange} {name}";
     }
 
     public void ChangeValues(string questName, int repsPerSet, int goalAmount, int xpAmount, bool isDaily, bool[] activeDaysOfTheWeek, float weight, bool isCardio, int seconds)
@@ -249,8 +252,7 @@ public class QuestButton : MonoBehaviour
         {
             editCardioMenu.gameObject.SetActive(true);
             editCardioMenu.questButton = this;
-            //moreMenu.questNameInput.text = questName;
-            editCardioMenu.secondsInput.text = repsPerSet.ToString();
+            editCardioMenu.secondsInput.text = seconds.ToString();
             editCardioMenu.goalAmountInput.text = goalAmount.ToString();
             editCardioMenu.xpAmountInput.text = xpAmount.ToString();
             editCardioMenu.dailyToggle.isOn = isDaily;

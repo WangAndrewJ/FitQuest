@@ -8,16 +8,23 @@ public class StatManager : MonoBehaviour
     public GameObject EditMenu;
     public TMP_InputField statInput;
     public LevelManager myLevelManager;
+    public DateManager myDateManager;
     private Stat currentStat;
     public Stat healthStat;
     public Stat attackStat;
     public Stat speedStat;
     public Stat[] decimalStats;
     public Stat[] intStats;
-    public Stat[] clampedIntStats;
-    //public int healthBoost;
-    public float attackMultiplier;
-    public float speedMultiplier;
+    public Color boostedAttackColor;
+    public Color boostedSpeedColor;
+    public Color normalColor;
+    /// <summary>
+    /// 0 = Attack Multiplier
+    ///  1 = Attack Gain Multiplier
+    ///  2 = Speed Multiplier
+    ///  3 = Speed Gain Multiplier
+    /// </summary>
+    public GameObject[] covers;
 
     private void Start()
     {
@@ -31,6 +38,18 @@ public class StatManager : MonoBehaviour
         foreach (Stat stat in intStats)
         {
             stat.statText.text = $"{stat.statName}: {PlayerPrefs.GetInt(stat.statName, stat.defaultInt)}";
+        }
+
+        if (myDateManager.currentBoosts[0])
+        {
+            BoostStat(attackStat, 1f, true);
+            covers[0].SetActive(true);
+        }
+
+        if (myDateManager.currentBoosts[2])
+        {
+            BoostStat(speedStat, 1f, true);
+            covers[2].SetActive(true);
         }
     }
 
@@ -96,8 +115,27 @@ public class StatManager : MonoBehaviour
 
         int maxStat = PlayerPrefs.GetInt($"{stat.statName}.maxStat", stat.maxStat);
         int newValue = Mathf.Clamp(PlayerPrefs.GetInt(stat.statName, stat.defaultInt) + change, 0, maxStat);
-
         stat.statText.text = $"{stat.statName}: {newValue} / {maxStat}";
         PlayerPrefs.SetInt(stat.statName, newValue);
+    }
+
+    public void BoostStat(Stat stat, float boost, bool isBoosting)
+    {
+        int newValue = PlayerPrefs.GetInt(stat.statName, stat.defaultInt);
+
+        if (isBoosting && stat.statText.color != boostedAttackColor && stat.statText.color != boostedSpeedColor)
+        {
+            newValue = Mathf.RoundToInt(newValue * boost);
+            stat.statText.color = stat == attackStat ? boostedAttackColor : boostedSpeedColor;
+        }
+        else if (!isBoosting && stat.statText.color != normalColor)
+        {
+            newValue = Mathf.RoundToInt(newValue / boost);
+            stat.statText.color = normalColor;
+        }
+
+        stat.statText.text = $"{stat.statName}: {newValue}";
+        PlayerPrefs.SetInt(stat.statName, newValue);
+        myDateManager.SaveBoosts();
     }
 }
