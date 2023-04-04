@@ -19,6 +19,7 @@ public class ButtonManager : MonoBehaviour
     public StatManager myStatManager;
     private List<Quest> quests;
     public RectTransform content;
+    public float buttonMaxY;
     [Space(10)]
     [Header("Quest Inputs")]
     public TMP_InputField questNameInput;
@@ -87,7 +88,7 @@ public class ButtonManager : MonoBehaviour
 
     public void RearrangeButtons()
     {
-        float childYPos = 90f;
+        float childYPos = buttonMaxY;
         RectTransform[] children = new RectTransform[transform.childCount];
 
         foreach (RectTransform child in transform)
@@ -107,7 +108,7 @@ public class ButtonManager : MonoBehaviour
 
     public void RearrangeMovingButtons()
     {
-        float childYPos = 90f;
+        float childYPos = buttonMaxY;
         RectTransform[] children = new RectTransform[transform.childCount];
 
         foreach (RectTransform child in transform)
@@ -274,7 +275,8 @@ public class ButtonManager : MonoBehaviour
         {
             RectTransform instantiatedQuestButton = Instantiate(questButtonPrefab, transform).GetComponent<RectTransform>();
             QuestButton alreadyInstantiatedQuestButton = instantiatedQuestButton.GetComponent<QuestButton>();
-            instantiatedQuestButton.anchoredPosition = new Vector3(0f, 90f - quests[i].order * 135f, 0f);
+            Debug.Log(buttonMaxY - quests[i].order * 135f);
+            instantiatedQuestButton.anchoredPosition = new Vector3(0f, buttonMaxY - quests[i].order * 135f, 0f);
             alreadyInstantiatedQuestButton.LoadValues(quests[i].questName, quests[i].repsPerSet, quests[i].goalAmount, quests[i].xpAmount, quests[i].isDaily, quests[i].sliderValue, quests[i].isDisabled, quests[i].dailyStreak, quests[i].activeDaysOfTheWeek, quests[i].weight, quests[i].isCardio, quests[i].seconds);
             newQuestButton.anchoredPosition = new Vector3(0f, newQuestButton.anchoredPosition.y - 135f, 0f);
         }
@@ -291,7 +293,7 @@ public class ButtonManager : MonoBehaviour
             children[child.GetSiblingIndex()] = child;
         }
 
-        List<RectTransform> orderedChildren = children.OrderByDescending(orderedChildren => orderedChildren.position.y).ToList();
+        List<RectTransform> orderedChildren =/* children.OrderByDescending(orderedChildren => orderedChildren.position.y).ToList();*/ children.ToList();
         orderedChildren.Remove(newQuestButton);
 
         foreach (RectTransform child in orderedChildren)

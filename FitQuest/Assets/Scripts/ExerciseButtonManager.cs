@@ -19,6 +19,7 @@ public class ExerciseButtonManager : MonoBehaviour
     private List<ExerciseButton> exerciseButtons;
     //private bool isFirstTime = true;
     public TMP_InputField searchBar;
+    public float buttonMaxY;
 
     private void OnEnable()
     {

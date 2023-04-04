@@ -20,6 +20,7 @@ public class DateManager : MonoBehaviour
     public bool[] currentBoosts = new bool[4];
     private DateTime[] startTimes = new DateTime[4];
     public int powerUpDuration;
+    public RestDays restDays;
 
     private void Awake()
     {
@@ -50,7 +51,9 @@ public class DateManager : MonoBehaviour
                 Debug.Log("New Day!");
                 currentDayOfWeek = (int)DateTime.Today.DayOfWeek;
                 PlayerPrefs.SetInt("currentDayOfTheWeek", currentDayOfWeek);
-                myButtonManager.UpdateDayOfWeek(Enum.Parse<DayOfWeek>(currentDayOfWeek.ToString()));
+                DayOfWeek dayOfWeek = Enum.Parse<DayOfWeek>(currentDayOfWeek.ToString());
+                myButtonManager.UpdateDayOfWeek(dayOfWeek);
+                restDays.UpdateDayOfWeek(dayOfWeek);
                 myDailyQuestManager.LoadRandomQuests(ListOfExercises.Exercises());
                 myDailyQuestManager.LoadPowerUp((TypeOfPowerUp)UnityEngine.Random.Range(0, 5), true);
             }
