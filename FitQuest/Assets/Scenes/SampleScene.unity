@@ -1635,6 +1635,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 123896860}
   m_CullTransparentMesh: 1
+--- !u!1 &127485819
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 127485820}
+  - component: {fileID: 127485821}
+  m_Layer: 5
+  m_Name: Page 3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &127485820
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 127485819}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1694326863}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 1600.0001, y: 0}
+  m_SizeDelta: {x: 699.9999, y: 1631.2821}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &127485821
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 127485819}
+  m_CullTransparentMesh: 1
 --- !u!1 &143072058
 GameObject:
   m_ObjectHideFlags: 0
@@ -7039,7 +7084,7 @@ GameObject:
   - component: {fileID: 485537962}
   - component: {fileID: 485537964}
   m_Layer: 5
-  m_Name: Page 3
+  m_Name: Page 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7061,12 +7106,12 @@ RectTransform:
   - {fileID: 1023846256}
   - {fileID: 474030397}
   m_Father: {fileID: 1694326863}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1600.2992, y: 0}
-  m_SizeDelta: {x: 700.598, y: 1631.2821}
+  m_AnchoredPosition: {x: 2400, y: 0}
+  m_SizeDelta: {x: 700, y: 1631.2821}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &485537964
 CanvasRenderer:
@@ -28302,6 +28347,7 @@ RectTransform:
   - {fileID: 2061705900}
   - {fileID: 1182461737}
   - {fileID: 204252929}
+  - {fileID: 127485820}
   - {fileID: 485537962}
   m_Father: {fileID: 1820818141}
   m_RootOrder: 0
@@ -28325,7 +28371,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   percentThreshold: 0.2
   easing: 0.5
-  totalPages: 3
+  totalPages: 4
   currentPage: 2
 --- !u!1 &1696395603
 GameObject:
