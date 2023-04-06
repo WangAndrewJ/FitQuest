@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,8 +26,15 @@ public class RestDays : MonoBehaviour
         }
     }
 
-    public void UpdateRestDays()
+    public void StartUpdateRestDays()
     {
+        StartCoroutine(UpdateRestDays());
+    }
+
+    private IEnumerator UpdateRestDays()
+    {
+        yield return new WaitForEndOfFrame();
+
         daysOfWeek = new();
 
         for (int i = 0; i < 7; i++)
@@ -43,10 +51,11 @@ public class RestDays : MonoBehaviour
     private void LoadRestDays()
     {
         activeDaysOfTheWeek = JsonConvert.DeserializeObject<bool[]>(File.ReadAllText(Path.Combine(Application.persistentDataPath, "restdays.json")));
+        Debug.Log(File.ReadAllText(Path.Combine(Application.persistentDataPath, "restdays.json")));
 
         for (int i = 0; i < 7; i++)
         {
-            Debug.Log($"{i}: {daysOfTheWeekToggles[i].isOn}");
+            Debug.Log($"{i}: {activeDaysOfTheWeek[i]}");
             daysOfTheWeekToggles[i].isOn = activeDaysOfTheWeek[i];
         }
     }
@@ -58,6 +67,7 @@ public class RestDays : MonoBehaviour
             activeDaysOfTheWeek[i] = daysOfTheWeekToggles[i].isOn;
         }
 
+        Debug.Log(JsonConvert.SerializeObject(activeDaysOfTheWeek));
         File.WriteAllText(Path.Combine(Application.persistentDataPath, "restdays.json"), JsonConvert.SerializeObject(activeDaysOfTheWeek));
     }
 
