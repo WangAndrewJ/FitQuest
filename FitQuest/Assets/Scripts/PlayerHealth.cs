@@ -12,4 +12,22 @@ public class PlayerHealth : MonoBehaviour
         healthSlider.maxValue = PlayerPrefs.GetInt("Health.maxStat");
         healthSlider.value = health;
     }
+
+    public void Damage(int damage)
+    {
+        health -= damage;
+        PlayerPrefs.SetInt("Health", health);
+        healthSlider.maxValue = PlayerPrefs.GetInt("Health.maxStat");
+        healthSlider.value = health;
+
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+
+    }
 }
