@@ -9,7 +9,7 @@ public class MyButton : Button
     {
         base.OnPointerDown(eventData);
         Debug.Log("Down");
-        //hi there!
+        //s
     }
 
     public override void OnPointerUp(PointerEventData eventData)
