@@ -4,7 +4,7 @@ public class JoystickPlayerMovement : MonoBehaviour
 {
     private int speed;
     public int defaultSpeed;
-    public VariableJoystick variableJoystick;
+    public VariableJoystick myVariableJoystick;
     public Rigidbody2D myRigidbody2D;
 
     private void Start()
@@ -15,7 +15,7 @@ public class JoystickPlayerMovement : MonoBehaviour
 
     public void FixedUpdate()
     {
-        Vector2 direction = Vector2.up * variableJoystick.Vertical + Vector2.right * variableJoystick.Horizontal;
+        Vector2 direction = Vector2.up * myVariableJoystick.Vertical + Vector2.right * myVariableJoystick.Horizontal;
         myRigidbody2D.velocity = direction * speed;
     }
 }

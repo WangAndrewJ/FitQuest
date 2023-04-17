@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class EnemyBullet : MonoBehaviour
 {
-    public LayerMask playerLayerMask;
     public int damage;
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -12,7 +11,8 @@ public class EnemyBullet : MonoBehaviour
             Debug.Log("a");
             PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
             playerHealth.Damage(damage);
-            Destroy(gameObject);
         }
+
+        Destroy(gameObject);
     }
 }
