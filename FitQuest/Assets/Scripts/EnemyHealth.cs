@@ -5,9 +5,11 @@ public class EnemyHealth : MonoBehaviour
 {
     public int health;
     public Slider healthSlider;
+    public EnemyManager myEnemyManager;
 
     private void Start()
     {
+        myEnemyManager.enemies.Add(transform.parent);
         healthSlider.maxValue = health;
         healthSlider.value = health;
     }
@@ -25,6 +27,7 @@ public class EnemyHealth : MonoBehaviour
 
     public void Die()
     {
-
+        myEnemyManager.enemies.Remove(transform.parent);
+        Destroy(transform.parent.gameObject);
     }
 }

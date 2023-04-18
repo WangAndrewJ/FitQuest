@@ -5,11 +5,11 @@ using TMPro;
 public class LevelSelector : MonoBehaviour
 {
     public int levelIndex;
-    public TextMeshProUGUI label;
+    public TextMeshProUGUI stageText;
 
     private void Start()
     {
-        label.text = levelIndex.ToString();
+        stageText.text = $"Stage: {PlayerPrefs.GetInt("Stage", 1)}";
     }
 
     public void Select()

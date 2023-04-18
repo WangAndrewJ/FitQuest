@@ -145,6 +145,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6427392870271458207}
   - component: {fileID: 8865627054198221846}
+  - component: {fileID: 1732862300526965939}
   m_Layer: 5
   m_Name: Level Visual
   m_TagString: Untagged
@@ -190,6 +191,26 @@ MonoBehaviour:
   levelBar: {fileID: 8017150757256047303}
   xpText: {fileID: 8747760993275449798}
   levelText: {fileID: 8017150758061127634}
+--- !u!114 &1732862300526965939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6865327225588531644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a30e6ba702a62448a42357289ddb568, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 1
+  xpRequired: 0
+  x: 0.3
+  y: 2
+  currentXp: 0
+  totalXp: 0
+  levelVisual: {fileID: 8865627054198221846}
+  myStatManager: {fileID: 0}
 --- !u!1 &8017150757256047301
 GameObject:
   m_ObjectHideFlags: 0

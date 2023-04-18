@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class LevelManager : MonoBehaviour
 {
@@ -10,9 +11,19 @@ public class LevelManager : MonoBehaviour
     public int totalXp;
     public LevelVisual levelVisual;
     public StatManager myStatManager;
+    public PlayerHealth myPlayerHealth;
 
     private void Start()
     {
+        try
+        {
+            myStatManager = FindObjectOfType<StatManager>();
+        }
+        catch (Exception exception)
+        {
+            Debug.Log(exception);
+        }
+
         SetValues();
     }
 
@@ -43,8 +54,20 @@ public class LevelManager : MonoBehaviour
             maxXp = Mathf.RoundToInt(Mathf.Pow(level / x, y));
         }
 
+        try
+        {
+            myStatManager.UpdateMaxHealth();
+        }
+        catch
+        {
+            int newMax = PlayerPrefs.GetInt("Health.maxStat") + level * 5;
+            int currentValue = PlayerPrefs.GetInt("Health");
+            PlayerPrefs.SetInt("Health.maxStat", newMax);
+            PlayerPrefs.SetInt("Health", currentValue > newMax ? newMax : currentValue);
+            myPlayerHealth.UpdateHealth(currentValue);
+        }
+
         levelVisual.UpdateValues(maxXp, currentXp, level);
-        myStatManager.UpdateMaxHealth();
     }
 
     public void ChangeCurrentLevelAndXp(int increment)
