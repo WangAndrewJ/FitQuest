@@ -59,6 +59,6 @@ public class UsuablePowerUp : MonoBehaviour
     private void Heal()
     {
         Debug.Log(Mathf.RoundToInt(5 * (myLevelManager.level * 0.1f + 1)));
-        myStatManager.ChangeClampedStat(Mathf.RoundToInt(5 * (myLevelManager.level * 0.1f + 1)), myStatManager.healthStat);
+        myStatManager.ChangeStat(Mathf.RoundToInt(5 * (myLevelManager.level * 0.1f + 1)), myStatManager.healthStat);
     }
 }

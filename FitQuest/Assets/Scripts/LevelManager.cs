@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using TMPro;
 
 public class LevelManager : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class LevelManager : MonoBehaviour
     public LevelVisual levelVisual;
     public StatManager myStatManager;
     public PlayerHealth myPlayerHealth;
+    public GameObject popupPrefab;
+    public Transform pageSwiper;
 
     private void Start()
     {
@@ -51,6 +54,7 @@ public class LevelManager : MonoBehaviour
         {
             currentXp -= maxXp;
             level++;
+            Debug.Log(level);
             maxXp = Mathf.RoundToInt(Mathf.Pow(level / x, y));
         }
 
@@ -60,11 +64,10 @@ public class LevelManager : MonoBehaviour
         }
         catch
         {
-            int newMax = PlayerPrefs.GetInt("Health.maxStat") + level * 5;
-            int currentValue = PlayerPrefs.GetInt("Health");
-            PlayerPrefs.SetInt("Health.maxStat", newMax);
-            PlayerPrefs.SetInt("Health", currentValue > newMax ? newMax : currentValue);
-            myPlayerHealth.UpdateHealth(currentValue);
+            int max = PlayerPrefs.GetInt("Health", 45);
+            int newMax = max + level * 5;
+            PlayerPrefs.SetInt("Health", max);
+            myPlayerHealth.UpdateHealth(newMax, newMax);
         }
 
         levelVisual.UpdateValues(maxXp, currentXp, level);
@@ -72,6 +75,7 @@ public class LevelManager : MonoBehaviour
 
     public void ChangeCurrentLevelAndXp(int increment)
     {
+        int startingLevel = level;
         totalXp += increment;
 
         if (totalXp < 0)
@@ -81,5 +85,19 @@ public class LevelManager : MonoBehaviour
 
         PlayerPrefs.SetInt("totalXp", totalXp);
         UpdateCurrentLevelAndXp();
+
+        if (level != startingLevel)
+        {
+            try
+            {
+                myStatManager.ChangeStat(5, myStatManager.healthStat);
+                GameObject popup = Instantiate(popupPrefab, transform.position, Quaternion.identity, pageSwiper);
+                popup.GetComponent<TextMeshProUGUI>().text = $"+ 5 Health";
+            }
+            catch
+            {
+
+            }
+        }
     }
 }

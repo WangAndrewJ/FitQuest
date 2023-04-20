@@ -2481,7 +2481,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statName: Weight
   statText: {fileID: 169605228}
-  maxStat: 0
   defaultFloat: 0
   defaultInt: 0
 --- !u!1 &177293630
@@ -11841,7 +11840,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statName: Health
   statText: {fileID: 719139468}
-  maxStat: 45
   defaultFloat: 0
   defaultInt: 45
 --- !u!114 &719139468
@@ -20731,7 +20729,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statName: Weight
   statText: {fileID: 1237836857}
-  maxStat: 0
   defaultFloat: 0
   defaultInt: 0
 --- !u!114 &1237836856
@@ -31256,7 +31253,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statName: Attack
   statText: {fileID: 1812661820}
-  maxStat: 0
   defaultFloat: 0
   defaultInt: 20
 --- !u!114 &1812661820
@@ -33822,7 +33818,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statName: Speed
   statText: {fileID: 1945245175}
-  maxStat: 0
   defaultFloat: 0
   defaultInt: 20
 --- !u!114 &1945245175
@@ -34564,6 +34559,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1546626028}
     m_Modifications:
+    - target: {fileID: 1732862300526965939, guid: 3838ef4d9b095a34789480a6e3ad88c3, type: 3}
+      propertyPath: pageSwiper
+      value: 
+      objectReference: {fileID: 1694326863}
+    - target: {fileID: 1732862300526965939, guid: 3838ef4d9b095a34789480a6e3ad88c3, type: 3}
+      propertyPath: popupPrefab
+      value: 
+      objectReference: {fileID: 6438770166016703494, guid: fbb09f93849a99047b87e0a01361b275, type: 3}
+    - target: {fileID: 1732862300526965939, guid: 3838ef4d9b095a34789480a6e3ad88c3, type: 3}
+      propertyPath: myStatManager
+      value: 
+      objectReference: {fileID: 477094092}
     - target: {fileID: 6427392870271458207, guid: 3838ef4d9b095a34789480a6e3ad88c3, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

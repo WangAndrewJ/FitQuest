@@ -146,7 +146,7 @@ public class QuestButton : MonoBehaviour
     }
 
     private void ChangeStats()
-    {   // lines 143-144: add power up multiplier
+    {
         Stat statToChange = isCardio ? myStatManager.speedStat : myStatManager.attackStat;
         string name = isCardio ? "Speed" : "Attack";
         bool isBoosted = isCardio ? myDateManager.currentBoosts[3] : myDateManager.currentBoosts[1];

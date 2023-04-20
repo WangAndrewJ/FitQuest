@@ -76,7 +76,7 @@ public class RestDays : MonoBehaviour
         if (daysOfWeek.Contains(dayOfWeek))
         {
             Debug.Log(true);
-            myStatManager.ChangeClampedStat(UnityEngine.Random.Range(1, 11), myStatManager.healthStat);
+            myStatManager.ChangeStat(UnityEngine.Random.Range(1, 11), myStatManager.healthStat);
         }
     }
 }

@@ -6,24 +6,18 @@ public class PlayerHealth : MonoBehaviour
     public int health;
     public Slider healthSlider;
     public GameObject deathMenu;
-
-    private void Start()
-    {
-        health = PlayerPrefs.GetInt("Health");
-        healthSlider.maxValue = PlayerPrefs.GetInt("Health.maxStat");
-        healthSlider.value = health;
-    }
+    public LevelManager myLevelManager;
 
     public void Damage(int damage)
     {
         health -= damage;
-        UpdateHealth(health);
+        UpdateHealth(health, (int)healthSlider.maxValue);
     }
 
-    public void UpdateHealth(int health)
+    public void UpdateHealth(int health, int maxStat)
     {
-        PlayerPrefs.SetInt("Health", health);
-        healthSlider.maxValue = PlayerPrefs.GetInt("Health.maxStat");
+        this.health = health;
+        healthSlider.maxValue = maxStat;
         healthSlider.value = health;
 
         if (health <= 0)

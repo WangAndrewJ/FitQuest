@@ -18,13 +18,13 @@ public class GameplayLevelManager : MonoBehaviour
 
     public void GoToScene(int buildIndex)
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(buildIndex);
     }
 
     public void PlayAgain()
     {
         Time.timeScale = 1f;
-        PlayerPrefs.SetInt("Health", PlayerPrefs.GetInt("Health.maxStat"));
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
