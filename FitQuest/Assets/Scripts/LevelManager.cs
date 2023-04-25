@@ -54,7 +54,6 @@ public class LevelManager : MonoBehaviour
         {
             currentXp -= maxXp;
             level++;
-            Debug.Log(level);
             maxXp = Mathf.RoundToInt(Mathf.Pow(level / x, y));
         }
 
@@ -67,7 +66,8 @@ public class LevelManager : MonoBehaviour
             int max = PlayerPrefs.GetInt("Health", 45);
             int newMax = max + level * 5;
             PlayerPrefs.SetInt("Health", max);
-            myPlayerHealth.UpdateHealth(newMax, newMax);
+            int persistentHealth = PlayerPrefs.GetInt("PersistentHealth", 0);
+            myPlayerHealth.UpdateHealth(persistentHealth > 0 ? persistentHealth : newMax, newMax);
         }
 
         levelVisual.UpdateValues(maxXp, currentXp, level);

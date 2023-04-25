@@ -28,6 +28,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void Die()
     {
+        PlayerPrefs.SetInt("PersistentHealth", 0);
         deathMenu.SetActive(true);
         Time.timeScale = 0f;
     }

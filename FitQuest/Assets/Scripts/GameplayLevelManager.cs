@@ -13,7 +13,8 @@ public class GameplayLevelManager : MonoBehaviour
 
     private void SetStage()
     {
-        stageText.text = $"Stage: {PlayerPrefs.GetInt("Stage", 1)}";
+        stageText.text = $"Stage: {SceneManager.GetActiveScene().buildIndex}";
+        PlayerPrefs.SetInt("Stage", SceneManager.GetActiveScene().buildIndex);
     }
 
     public void GoToScene(int buildIndex)

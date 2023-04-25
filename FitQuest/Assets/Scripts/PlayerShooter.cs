@@ -30,6 +30,9 @@ public class PlayerShooter : MonoBehaviour
             nextFire = Time.time + fireRate;
             GameObject spawnedBullet = Instantiate(bullet, transform.position, transform.rotation);
             spawnedBullet.GetComponent<Rigidbody2D>().velocity = transform.up * bulletSpeed;
+            float attackMultiplier = (float)PlayerPrefs.GetInt("Attack", 20) / 20;
+            PlayerBullet playerBullet = spawnedBullet.GetComponent<PlayerBullet>();
+            playerBullet.damage = Mathf.RoundToInt(playerBullet.damage * attackMultiplier);
         }
     }
 
@@ -47,6 +50,7 @@ public class PlayerShooter : MonoBehaviour
                 minDist = dist;
             }
         }
+
         return tMin;
     }
 }

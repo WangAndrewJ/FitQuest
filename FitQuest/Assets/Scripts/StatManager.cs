@@ -58,7 +58,6 @@ public class StatManager : MonoBehaviour
         int newMax = healthStat.defaultInt + myLevelManager.level * 5;
         PlayerPrefs.SetInt("Health", healthStat.defaultInt);
 
-        Debug.Log(newMax);
         healthStat.statText.text = $"Health: {newMax}";
     }
 
