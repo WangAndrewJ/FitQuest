@@ -5,6 +5,7 @@ using TMPro;
 public class GameplayLevelManager : MonoBehaviour
 {
     public TextMeshProUGUI stageText;
+    public int currentStage;
 
     private void Start()
     {
@@ -13,8 +14,8 @@ public class GameplayLevelManager : MonoBehaviour
 
     private void SetStage()
     {
-        stageText.text = $"Stage: {SceneManager.GetActiveScene().buildIndex}";
-        PlayerPrefs.SetInt("Stage", SceneManager.GetActiveScene().buildIndex);
+        stageText.text = $"Stage: {currentStage}";
+        //PlayerPrefs.SetInt("Stage", SceneManager.GetActiveScene().buildIndex);
     }
 
     public void GoToScene(int buildIndex)
@@ -26,6 +27,7 @@ public class GameplayLevelManager : MonoBehaviour
     public void PlayAgain()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadSceneAsync(currentStage, LoadSceneMode.Additive);
+        SceneManager.UnloadSceneAsync(currentStage);
     }
 }

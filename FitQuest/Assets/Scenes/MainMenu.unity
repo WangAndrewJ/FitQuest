@@ -601,7 +601,7 @@ RectTransform:
   m_Children:
   - {fileID: 1911314911}
   m_Father: {fileID: 143072059}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1711,6 +1711,7 @@ RectTransform:
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1821903589}
   - {fileID: 328337422}
   - {fileID: 972316491}
   - {fileID: 985186025}
@@ -1719,11 +1720,11 @@ RectTransform:
   - {fileID: 286979132}
   - {fileID: 875985541}
   m_Father: {fileID: 1736010150}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 608.50006, y: -25}
+  m_AnchoredPosition: {x: 600, y: -330}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &150185041
@@ -2443,7 +2444,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 477094092}
+      - m_Target: {fileID: 1882700235}
         m_TargetAssemblyTypeName: StatManager, Assembly-CSharp
         m_MethodName: EnableEditMenu
         m_Mode: 2
@@ -4346,7 +4347,7 @@ RectTransform:
   m_Children:
   - {fileID: 609957646}
   m_Father: {fileID: 143072059}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4683,7 +4684,7 @@ RectTransform:
   m_Children:
   - {fileID: 181662193}
   m_Father: {fileID: 143072059}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5937,7 +5938,7 @@ MonoBehaviour:
   myTypeOfPowerUp: 3
   text: {fileID: 565581018}
   cover: {fileID: 1131314997}
-  myStatManager: {fileID: 0}
+  myStatManager: {fileID: 1882700235}
   myLevelManager: {fileID: 0}
   myDateManager: {fileID: 1882700234}
 --- !u!1 &431183965
@@ -7008,9 +7009,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 477094091}
-  - component: {fileID: 477094092}
   m_Layer: 5
-  m_Name: Stat Manager
+  m_Name: Stats
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7042,39 +7042,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &477094092
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 477094090}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 845de360b250d544ab2782d0854b6f62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  placeholder: {fileID: 802801210}
-  EditMenu: {fileID: 1023846255}
-  statInput: {fileID: 770791301}
-  myLevelManager: {fileID: 1981079047}
-  myDateManager: {fileID: 1882700234}
-  healthStat: {fileID: 719139466}
-  attackStat: {fileID: 1812661818}
-  speedStat: {fileID: 1945245174}
-  decimalStats:
-  - {fileID: 169605231}
-  intStats:
-  - {fileID: 1812661818}
-  - {fileID: 1945245174}
-  boostedAttackColor: {r: 0.7058824, g: 0.21568628, b: 0.21568628, a: 1}
-  boostedSpeedColor: {r: 0.3137255, g: 0.5882353, b: 1, a: 1}
-  normalColor: {r: 1, g: 1, b: 0.78431374, a: 1}
-  covers:
-  - {fileID: 1124170448}
-  - {fileID: 1131314997}
-  - {fileID: 450701288}
-  - {fileID: 394280605}
 --- !u!1 &485537961
 GameObject:
   m_ObjectHideFlags: 0
@@ -8200,12 +8167,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1754.9053, y: -1266.0693, z: -9.996875}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1443574368}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &521117857
@@ -12059,9 +12026,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1736010150}
   - {fileID: 2186032576999191773}
   m_Father: {fileID: 772377089}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -12082,12 +12050,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questButtonPrefab: {fileID: 7465793826867120165, guid: 9978ff60e83c1c94bbe288408f193016, type: 3}
   newQuestButton: {fileID: 2186032576999191773}
+  restDays: {fileID: 1736010150}
   levelManager: {fileID: 1981079047}
   myDateManager: {fileID: 1882700234}
   moreMenu: {fileID: 2527276475187041686}
   editCardioMenu: {fileID: 1345450379}
   pageSwiper: {fileID: 1694326864}
-  myStatManager: {fileID: 477094092}
+  myStatManager: {fileID: 1882700235}
   content: {fileID: 772377089}
   buttonMaxY: -90
   questNameInput: {fileID: 1506577971}
@@ -12528,7 +12497,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1736010150}
   - {fileID: 745339723}
   m_Father: {fileID: 543858312}
   m_RootOrder: 0
@@ -15195,7 +15163,7 @@ RectTransform:
   m_Children:
   - {fileID: 1936249759}
   m_Father: {fileID: 143072059}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -16291,7 +16259,7 @@ RectTransform:
   m_Children:
   - {fileID: 1494747160}
   m_Father: {fileID: 143072059}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -16542,7 +16510,7 @@ RectTransform:
   m_Children:
   - {fileID: 688468159}
   m_Father: {fileID: 143072059}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -20672,7 +20640,7 @@ MonoBehaviour:
   myTypeOfPowerUp: 2
   text: {fileID: 190640321}
   cover: {fileID: 450701288}
-  myStatManager: {fileID: 0}
+  myStatManager: {fileID: 1882700235}
   myLevelManager: {fileID: 0}
   myDateManager: {fileID: 1882700234}
 --- !u!1 &1237836853
@@ -20775,7 +20743,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 477094092}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StatManager, Assembly-CSharp
         m_MethodName: EnableEditMenu
         m_Mode: 2
@@ -21181,7 +21149,7 @@ MonoBehaviour:
   myTypeOfPowerUp: 4
   text: {fileID: 1110704587}
   cover: {fileID: 394280605}
-  myStatManager: {fileID: 0}
+  myStatManager: {fileID: 1882700235}
   myLevelManager: {fileID: 0}
   myDateManager: {fileID: 1882700234}
 --- !u!1 &1283088107
@@ -23812,6 +23780,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: -8, y: -5, z: -8, w: -5}
   m_Softness: {x: 0, y: 0}
+--- !u!1 &1443574367
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1443574368}
+  m_Layer: 0
+  m_Name: Main Menu
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1443574368
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443574367}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1754.9053, y: 1266.0693, z: -0.0031251712}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 519420032}
+  - {fileID: 1820818141}
+  - {fileID: 1808376955}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1444105511
 GameObject:
   m_ObjectHideFlags: 0
@@ -25197,7 +25199,7 @@ MonoBehaviour:
   myTypeOfPowerUp: 0
   text: {fileID: 489797542}
   cover: {fileID: 387416778}
-  myStatManager: {fileID: 477094092}
+  myStatManager: {fileID: 1882700235}
   myLevelManager: {fileID: 0}
   myDateManager: {fileID: 1882700234}
 --- !u!1 &1520661827
@@ -25669,7 +25671,7 @@ GameObject:
   - component: {fileID: 1534442967}
   - component: {fileID: 1534442966}
   m_Layer: 5
-  m_Name: New Quest Button
+  m_Name: Play Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25708,8 +25710,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35551a813663f3143b12bdf112d6a9aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelIndex: 1
   stageText: {fileID: 1237836857}
+  mainMenu: {fileID: 1443574367}
 --- !u!114 &1534442967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25991,7 +25993,7 @@ RectTransform:
   m_Children:
   - {fileID: 644516130}
   m_Father: {fileID: 143072059}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -29126,7 +29128,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 477094092}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StatManager, Assembly-CSharp
         m_MethodName: ChangeStat
         m_Mode: 1
@@ -29864,14 +29866,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1821903589}
   - {fileID: 143072059}
-  m_Father: {fileID: 772377089}
+  m_Father: {fileID: 745339723}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 315}
+  m_AnchoredPosition: {x: 0, y: 464.99966}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1736010151
@@ -29886,7 +29887,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05fc6b5e8a678a143add5696c3bab5f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myStatManager: {fileID: 477094092}
+  myStatManager: {fileID: 0}
   daysOfTheWeekToggles:
   - {fileID: 328337423}
   - {fileID: 972316492}
@@ -30244,7 +30245,7 @@ MonoBehaviour:
   myTypeOfPowerUp: 1
   text: {fileID: 791982857}
   cover: {fileID: 1124170448}
-  myStatManager: {fileID: 0}
+  myStatManager: {fileID: 1882700235}
   myLevelManager: {fileID: 0}
   myDateManager: {fileID: 1882700234}
 --- !u!1 &1761837441
@@ -31192,12 +31193,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1808376952}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1754.9053, y: -1266.0693, z: 0.0031251712}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1443574368}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1812661816
@@ -31445,7 +31446,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1694326863}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1443574368}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -31480,16 +31481,16 @@ RectTransform:
   m_GameObject: {fileID: 1821903588}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1736010150}
+  m_Father: {fileID: 143072059}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00004196167, y: -45}
-  m_SizeDelta: {x: 560, y: 0}
+  m_AnchoredPosition: {x: -60, y: -2}
+  m_SizeDelta: {x: 560, y: -0.00000023841858}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1821903590
 MonoBehaviour:
@@ -32420,6 +32421,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1882700233}
   - component: {fileID: 1882700234}
+  - component: {fileID: 1882700235}
   m_Layer: 0
   m_Name: 'Game Manager '
   m_TagString: Untagged
@@ -32440,7 +32442,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1882700234
 MonoBehaviour:
@@ -32456,10 +32458,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myButtonManager: {fileID: 745339724}
   myDailyQuestManager: {fileID: 848466449}
-  myStatManager: {fileID: 477094092}
+  myStatManager: {fileID: 1882700235}
   currentBoosts: 00000000
   powerUpDuration: 180
   restDays: {fileID: 1736010151}
+--- !u!114 &1882700235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1882700231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 845de360b250d544ab2782d0854b6f62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  placeholder: {fileID: 802801210}
+  EditMenu: {fileID: 1023846255}
+  statInput: {fileID: 770791301}
+  myLevelManager: {fileID: 1981079047}
+  myDateManager: {fileID: 1882700234}
+  healthStat: {fileID: 719139466}
+  attackStat: {fileID: 1812661818}
+  attackSpeedStat: {fileID: 1945245174}
+  decimalStats:
+  - {fileID: 169605231}
+  intStats:
+  - {fileID: 1812661818}
+  - {fileID: 1945245174}
+  boostedAttackColor: {r: 0.7058824, g: 0.21568628, b: 0.21568628, a: 1}
+  boostedAttackSpeedColor: {r: 0.3137255, g: 0.5882353, b: 1, a: 1}
+  normalColor: {r: 1, g: 1, b: 0.78431374, a: 1}
+  covers:
+  - {fileID: 1124170448}
+  - {fileID: 1131314997}
+  - {fileID: 450701288}
+  - {fileID: 394280605}
 --- !u!1 &1882773399
 GameObject:
   m_ObjectHideFlags: 0
@@ -33778,7 +33813,7 @@ GameObject:
   - component: {fileID: 1945245175}
   - component: {fileID: 1945245174}
   m_Layer: 5
-  m_Name: 'Speed (TMP) '
+  m_Name: 'Attack Speed (TMP) '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33816,7 +33851,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44a6c9998d6691745b34f8def2ca3917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statName: Speed
+  statName: Attack Speed
   statText: {fileID: 1945245175}
   defaultFloat: 0
   defaultInt: 20
@@ -33840,7 +33875,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Speed: X'
+  m_text: 'Attack Speed: X'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -34570,7 +34605,7 @@ PrefabInstance:
     - target: {fileID: 1732862300526965939, guid: 3838ef4d9b095a34789480a6e3ad88c3, type: 3}
       propertyPath: myStatManager
       value: 
-      objectReference: {fileID: 477094092}
+      objectReference: {fileID: 0}
     - target: {fileID: 6427392870271458207, guid: 3838ef4d9b095a34789480a6e3ad88c3, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -34968,7 +35003,7 @@ MonoBehaviour:
   myImage: {fileID: 2003307960}
   healthColor: {r: 0.5882353, g: 1, b: 0.5882353, a: 1}
   attackColor: {r: 0.7058824, g: 0.21568628, b: 0.21568628, a: 1}
-  speedColor: {r: 0.3137255, g: 0.5882353, b: 1, a: 1}
+  attackSpeedColor: {r: 0, g: 0, b: 0, a: 0}
   text: {fileID: 692971735}
 --- !u!1 &2003882720
 GameObject:
@@ -38034,7 +38069,7 @@ RectTransform:
   m_Children:
   - {fileID: 2186032575073969756}
   m_Father: {fileID: 745339723}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

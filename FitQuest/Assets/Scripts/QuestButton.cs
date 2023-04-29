@@ -147,8 +147,8 @@ public class QuestButton : MonoBehaviour
 
     private void ChangeStats()
     {
-        Stat statToChange = isCardio ? myStatManager.speedStat : myStatManager.attackStat;
-        string name = isCardio ? "Speed" : "Attack";
+        Stat statToChange = isCardio ? myStatManager.attackSpeedStat : myStatManager.attackStat;
+        string name = isCardio ? "Attack Speed" : "Attack";
         bool isBoosted = isCardio ? myDateManager.currentBoosts[3] : myDateManager.currentBoosts[1];
         float boostMultiplier = isBoosted ? 1.5f : 1f;
         int statToChangeChange = Mathf.RoundToInt(UnityEngine.Random.Range(0.55f, 2f) * goalAmount * boostMultiplier);

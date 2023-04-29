@@ -33,6 +33,11 @@ public class DateManager : MonoBehaviour
             {
                 startTimes = new DateTime[4];
             }
+
+            if (currentBoosts == null)
+            {
+                currentBoosts = new bool[4];
+            }
         }
         catch (Exception exception)
         {
@@ -72,7 +77,7 @@ public class DateManager : MonoBehaviour
                     }
                     else if (i == 2)
                     {
-                        myStatManager.BoostStat(myStatManager.speedStat, 1.5f, false);
+                        myStatManager.BoostStat(myStatManager.attackSpeedStat, 1.5f, false);
                     }
 
                     SaveBoosts();
@@ -105,7 +110,7 @@ public class DateManager : MonoBehaviour
         }
         else if (index == 2)
         {
-            myStatManager.BoostStat(myStatManager.speedStat, 1.5f, true);
+            myStatManager.BoostStat(myStatManager.attackSpeedStat, 1.5f, true);
         }
     }
 

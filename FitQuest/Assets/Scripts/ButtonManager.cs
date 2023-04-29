@@ -11,6 +11,7 @@ public class ButtonManager : MonoBehaviour
 {
     public GameObject questButtonPrefab;
     public RectTransform newQuestButton;
+    public RectTransform restDays;
     public LevelManager levelManager;
     public DateManager myDateManager;
     public MoreMenu moreMenu;
@@ -72,6 +73,7 @@ public class ButtonManager : MonoBehaviour
 
         List<RectTransform> orderedChildren = children.OrderByDescending(orderedChildren => orderedChildren.position.y).ToList();
         orderedChildren.Remove(newQuestButton);
+        orderedChildren.Remove(restDays);
 
         foreach (RectTransform child in orderedChildren)
         {
@@ -96,7 +98,10 @@ public class ButtonManager : MonoBehaviour
             children[child.GetSiblingIndex()] = child;
         }
 
-        foreach (RectTransform child in children.OrderByDescending(orderedChildren => orderedChildren.position.y))
+        List<RectTransform> orderedChildren = children.OrderByDescending(orderedChildren => orderedChildren.position.y).ToList();
+        orderedChildren.Remove(restDays);
+
+        foreach (RectTransform child in orderedChildren)
         {
             child.anchoredPosition = new Vector3(0f, childYPos, 0f);
             childYPos -= 135f;
@@ -295,6 +300,7 @@ public class ButtonManager : MonoBehaviour
 
         List<RectTransform> orderedChildren =/* children.OrderByDescending(orderedChildren => orderedChildren.position.y).ToList();*/ children.ToList();
         orderedChildren.Remove(newQuestButton);
+        orderedChildren.Remove(restDays);
 
         foreach (RectTransform child in orderedChildren)
         {

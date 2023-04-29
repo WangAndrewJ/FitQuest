@@ -5,6 +5,7 @@ using TMPro;
 public class LevelSelector : MonoBehaviour
 {
     public TextMeshProUGUI stageText;
+    public GameObject mainMenu;
 
     private void Start()
     {
@@ -13,6 +14,7 @@ public class LevelSelector : MonoBehaviour
 
     public void Select()
     {
-        SceneManager.LoadScene(PlayerPrefs.GetInt("Stage", 1));
+        SceneManager.LoadSceneAsync(PlayerPrefs.GetInt("Stage", 1), LoadSceneMode.Additive);
+        mainMenu.SetActive(false);
     }
 }

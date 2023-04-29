@@ -27,10 +27,13 @@ public class PlayerShooter : MonoBehaviour
         if (Time.time > nextFire)
         {
             Debug.Log($"Fire: {Time.time}");
-            nextFire = Time.time + fireRate;
+            float attackSpeedMultiplier = PlayerPrefs.GetInt("Attack Speed", 20) / 20f;
+            Debug.Log("ASPDM: " + attackSpeedMultiplier);
+            Debug.Log("FR: " + fireRate / attackSpeedMultiplier);
+            nextFire = Time.time + fireRate / attackSpeedMultiplier;
             GameObject spawnedBullet = Instantiate(bullet, transform.position, transform.rotation);
             spawnedBullet.GetComponent<Rigidbody2D>().velocity = transform.up * bulletSpeed;
-            float attackMultiplier = (float)PlayerPrefs.GetInt("Attack", 20) / 20;
+            float attackMultiplier = PlayerPrefs.GetInt("Attack", 20) / 20f;
             PlayerBullet playerBullet = spawnedBullet.GetComponent<PlayerBullet>();
             playerBullet.damage = Mathf.RoundToInt(playerBullet.damage * attackMultiplier);
         }

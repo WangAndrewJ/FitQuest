@@ -7,9 +7,9 @@ public enum TypeOfPowerUp
 {
     Heal,
     AttackMultiplier,
-    SpeedMultiplier,
+    AttackSpeedMultiplier,
     AttackGainMultiplier,
-    SpeedGainMultiplier
+    AttackSpeedGainMultiplier
 }
 
 public class PowerUpButton : MonoBehaviour
@@ -19,7 +19,7 @@ public class PowerUpButton : MonoBehaviour
     public Image myImage;
     public Color healthColor;
     public Color attackColor;
-    public Color speedColor;
+    public Color attackSpeedColor;
     public TextMeshProUGUI text;
     private DailyQuestManager myDailyQuestManager;
 
@@ -37,9 +37,9 @@ public class PowerUpButton : MonoBehaviour
             case TypeOfPowerUp.AttackGainMultiplier:
                 myImage.color = attackColor;
                 break;
-            case TypeOfPowerUp.SpeedMultiplier:
-            case TypeOfPowerUp.SpeedGainMultiplier:
-                myImage.color = speedColor;
+            case TypeOfPowerUp.AttackSpeedMultiplier:
+            case TypeOfPowerUp.AttackSpeedGainMultiplier:
+                myImage.color = attackSpeedColor;
                 break;
         }
 

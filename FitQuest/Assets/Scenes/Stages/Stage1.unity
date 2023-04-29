@@ -6175,6 +6175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageText: {fileID: 743576585}
+  currentStage: 1
 --- !u!1 &1703989739
 GameObject:
   m_ObjectHideFlags: 0

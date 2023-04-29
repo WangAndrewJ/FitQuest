@@ -12,17 +12,17 @@ public class StatManager : MonoBehaviour
     private Stat currentStat;
     public Stat healthStat;
     public Stat attackStat;
-    public Stat speedStat;
+    public Stat attackSpeedStat;
     public Stat[] decimalStats;
     public Stat[] intStats;
     public Color boostedAttackColor;
-    public Color boostedSpeedColor;
+    public Color boostedAttackSpeedColor;
     public Color normalColor;
     /// <summary>
     /// 0 = Attack Multiplier
     ///  1 = Attack Gain Multiplier
-    ///  2 = Speed Multiplier
-    ///  3 = Speed Gain Multiplier
+    ///  2 = Attack Speed Multiplier
+    ///  3 = Attack Speed Gain Multiplier
     /// </summary>
     public GameObject[] covers;
 
@@ -48,7 +48,7 @@ public class StatManager : MonoBehaviour
 
         if (myDateManager.currentBoosts[2])
         {
-            BoostStat(speedStat, 1f, true);
+            BoostStat(attackSpeedStat, 1f, true);
             covers[2].SetActive(true);
         }
     }
@@ -121,10 +121,10 @@ public class StatManager : MonoBehaviour
     {
         int newValue = PlayerPrefs.GetInt(stat.statName, stat.defaultInt);
 
-        if (isBoosting && stat.statText.color != boostedAttackColor && stat.statText.color != boostedSpeedColor)
+        if (isBoosting && stat.statText.color != boostedAttackColor && stat.statText.color != boostedAttackSpeedColor)
         {
             newValue = Mathf.RoundToInt(newValue * boost);
-            stat.statText.color = stat == attackStat ? boostedAttackColor : boostedSpeedColor;
+            stat.statText.color = stat == attackStat ? boostedAttackColor : boostedAttackSpeedColor;
         }
         else if (!isBoosting && stat.statText.color != normalColor)
         {

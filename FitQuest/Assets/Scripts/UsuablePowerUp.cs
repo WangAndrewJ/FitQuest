@@ -46,10 +46,10 @@ public class UsuablePowerUp : MonoBehaviour
                 case TypeOfPowerUp.AttackGainMultiplier:
                     myDateManager.StartCountDown(1);
                     break;
-                case TypeOfPowerUp.SpeedMultiplier:
+                case TypeOfPowerUp.AttackSpeedMultiplier:
                     myDateManager.StartCountDown(2);
                     break;
-                case TypeOfPowerUp.SpeedGainMultiplier:
+                case TypeOfPowerUp.AttackSpeedGainMultiplier:
                     myDateManager.StartCountDown(3);
                     break;
             }
